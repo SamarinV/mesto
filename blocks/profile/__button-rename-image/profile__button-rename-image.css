@@ -1,0 +1,13 @@
+.profile__button-rename-image {
+  width: 10px;
+  height: 10px;
+  
+}
+
+@media screen and (max-width: 767px) {
+  .profile__button-rename-image {
+    width: 7.5px;
+    height: 7.5px;
+    margin-bottom: 4px;
+  }
+}

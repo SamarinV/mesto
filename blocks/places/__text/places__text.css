@@ -1,0 +1,14 @@
+.places__text {
+  padding: 25px 19px 28px 21px;
+  margin: 0;
+  height: 29px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 767px) {
+  .places__text {
+    padding: 26px 19px 24px 21px;
+  }
+  
+}
