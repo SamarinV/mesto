@@ -1,6 +1,9 @@
 .profile__button-edit-logo {
+  margin: auto;
   width: 10px;
   height: 10px;
+  background-image: url('../../../images/edit.png');
+  background-size: contain;
   
 }
 
@@ -8,6 +11,5 @@
   .profile__button-edit-logo {
     width: 7.5px;
     height: 7.5px;
-    margin-bottom: 4px;
   }
 }

@@ -4,6 +4,7 @@
   align-self: flex-end;
   transition: 0.4s ease-in;
   background-image: url(../../../images/like.png);
+  background-size: contain;
 }
 .places__like:hover {
   opacity: 0.5;
