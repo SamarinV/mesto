@@ -3,6 +3,7 @@
   height: 19px;
   align-self: flex-end;
   transition: 0.4s ease-in;
+  background-image: url(../../../images/like.png);
 }
 .places__like:hover {
   opacity: 0.5;
