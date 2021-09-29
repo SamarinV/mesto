@@ -1,9 +1,9 @@
-.form__name {
+.pop-up__about-self {
   width: 358px;
   height: 27px;
   box-sizing: border-box;
   padding: 10px;
-  margin: 0 auto 30px auto;
+  margin-bottom: 48px;
   border-top: none;
   border-left: none;
   border-right: none;

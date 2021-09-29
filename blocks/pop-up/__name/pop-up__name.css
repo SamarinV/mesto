@@ -1,9 +1,9 @@
-.form__profession {
+.pop-up__name {
   width: 358px;
   height: 27px;
   box-sizing: border-box;
   padding: 10px;
-  margin: 0 auto 48px auto;
+  margin-bottom: 30px;
   border-top: none;
   border-left: none;
   border-right: none;

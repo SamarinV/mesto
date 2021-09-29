@@ -1,4 +1,4 @@
-.form__button-close {
+.pop-up__close {
   width: 32px;
   height: 32px;
   background-image: url('../../../images/Close-Icon.png');
@@ -11,7 +11,7 @@
   transition: 0.4s ease-in;
 }
 
-.form__button-close:hover {
+.pop-up__close:hover {
   cursor: pointer;
   opacity: 0.6;
 }  

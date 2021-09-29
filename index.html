@@ -18,14 +18,14 @@
       <div class="profile__info">
         <div class="profile__info-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__button-rename">
-            <img class="profile__button-rename-image" src="./images/edit.png" alt="Редактировать">
+          <button class="profile__button-edit">
+            <img class="profile__button-edit-logo" src="./images/edit.png" alt="Редактировать">
           </button>
         </div>
-        <p class="profile__profession">Исследователь океана</p>
+        <p class="profile__about-self">Исследователь океана</p>
       </div>
       <button class="profile__button-add">
-        <img class="profile__button-add-image" src="./images/cross.png" alt="Крестик">
+        <img class="profile__button-add-logo" src="./images/cross.png" alt="Крестик">
       </button>
     </section>
 
@@ -79,17 +79,15 @@
     <p class="footer__author">© 2020 Mesto Russia</p>
   </footer>
 
-  <section class="form">
-    <form class="form__wrapper">
-      <button class="form__button-close"></button>
-      <h2 class="form__title">Редактировать профиль</h2>
-      <input class="form__name" type="text" value="Name">
-      <input class="form__profession" type="text" value="Name">
-      <button class="form__button-save">Сохранить</button>
-      
-    
-    </form>
-
+  <section class="pop-up pop-up_disabled">
+    <form class="pop-up__form">
+      <button class="pop-up__close"></button>
+      <h2 class="pop-up__title">Редактировать профиль</h2>
+      <input class="pop-up__name" type="text" value="Жак-Ив Кусто">
+      <input class="pop-up__about-self" type="text" value="Исследователь океана">
+      <button class="pop-up__save">Сохранить</button>
+     </form>
   </section>
+  <script src="./index.js"></script>
 </body>
 </html>
