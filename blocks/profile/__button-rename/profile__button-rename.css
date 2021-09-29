@@ -6,6 +6,11 @@
   background-color: #000;
   margin-left: 18px;
   margin-top: 36px;
+  transition: 0.4s ease-in;
+}
+.profile__button-rename:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

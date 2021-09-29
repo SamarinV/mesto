@@ -1,0 +1,12 @@
+.form__wrapper {
+  width: 430px;
+  height: 330px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  top: 195px;
+  left: calc(50% - 215px);
+
+}

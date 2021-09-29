@@ -1,0 +1,10 @@
+.form__profession {
+  width: 358px;
+  height: 27px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0 auto 48px auto;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}

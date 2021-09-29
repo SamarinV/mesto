@@ -25,3 +25,11 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__author/footer__author.css);
+
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/__wrapper/form__wrapper.css);
+@import url(../blocks/form/__button-close/form__button-close.css);
+@import url(../blocks/form/__title/form__title.css);
+@import url(../blocks/form/__name/form__name.css);
+@import url(../blocks/form/__profession/form__profession.css);
+@import url(../blocks/form/__button-save/form__button-save.css);
