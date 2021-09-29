@@ -3,17 +3,17 @@ let buttonEdit = document.querySelector('.profile__button-edit');
 let form = document.querySelector('.pop-up');
 let buttonClose = document.querySelector('.pop-up__close');
 
+//кнопка edit открывает pop-up
 buttonEdit.addEventListener('click', function(evt){
   evt.preventDefault()
   form.classList.remove('pop-up_disabled');
 });
-
+//кнопка edit закрывает pop-up
 buttonClose.addEventListener('click', function(evt){
   evt.preventDefault()
   form.classList.add('pop-up_disabled');
 });
-
-//pop-up
+//перенос данных из pop-up в html
 let Name = document.querySelector('.profile__name');
 let About = document.querySelector('.profile__about-self');
 form.addEventListener('submit' , function(evt){
@@ -24,9 +24,8 @@ form.addEventListener('submit' , function(evt){
   About.innerText = formAbout.value;
   form.classList.add('pop-up_disabled');
 });
-
-//
-let like = document.querySelectorAll('.places__like');    //меняем лайк
+//меняем картинку у лайка
+let like = document.querySelectorAll('.places__like'); 
 Array.prototype.slice.call(like).forEach(el => {
   el.addEventListener('click', e => {
       el.classList.toggle('places__like_active');
