@@ -10,3 +10,10 @@
   line-height: 17px;
   padding-bottom: 8px;
 }
+
+@media screen and (max-width: 767px) {
+  .pop-up__about-self {
+    width: 238px;
+    margin-bottom: 40px;
+  }
+}
