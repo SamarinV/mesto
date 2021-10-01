@@ -1,9 +1,11 @@
 .places__like {
   width: 22px;
   height: 19px;
+  background-color: transparent;
+  border: none;
   align-self: flex-end;
   transition: 0.4s ease-in;
-  background-image: url(../../../images/like.png);
+  background-image: url(../../../images/like.svg);
   background-size: contain;
 }
 .places__like:hover {

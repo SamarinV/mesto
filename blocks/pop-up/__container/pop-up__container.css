@@ -1,24 +1,16 @@
-.pop-up__form {
+.pop-up__container {
   width: 430px;
-  height: 330px;
-  position: fixed;
-  top: 195px;
-  left: calc(50% - 215px);
-  margin: 0 auto;
-  color: #000;
   background-color: #fff;
+  color: #000;
   border-radius: 10px;
   padding: 34px 36px 37px 36px;
   box-sizing: border-box;
-
+  position: relative;
 }
 
 @media screen and (max-width: 767px) {
-  .pop-up__form {
-    top:123px;
-    left: calc(50% - 141px);
+  .pop-up__container {
     width: 282px;
-    height: 322px;
     padding: 25px 22px;
   }
 }

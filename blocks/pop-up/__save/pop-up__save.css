@@ -6,8 +6,10 @@
   color: #fff;
   transition: 0.4s ease-in;
   font-size: 18px;
-line-height: 22px;
-text-align: center;
+  line-height: 22px;
+  text-align: center;
+  margin-top: 48px;
+  border: none;
 }
 
 .pop-up__save:hover {
@@ -20,5 +22,6 @@ text-align: center;
     width: 238px;
     font-size: 14px;
     line-height: 17px;
+    margin-top: 40px;
   }
 }
