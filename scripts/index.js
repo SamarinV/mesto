@@ -31,3 +31,11 @@ function submitForm(event) {
 buttonEdit.addEventListener('click', openPopup);
 buttonCloseEdit.addEventListener('click', closePopup);
 form.addEventListener('submit', submitForm);
+
+//меняем картинку у лайка 
+let like = document.querySelectorAll('.places__like');  
+Array.prototype.slice.call(like).forEach(el => { 
+  el.addEventListener('click', e => { 
+      el.classList.toggle('places__like_active'); 
+  }); 
+}); 
