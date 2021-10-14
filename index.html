@@ -27,6 +27,9 @@
     </section>
 
     <section class="places">
+
+      
+<!-- 
       <article class="places__item">
         <img class="places__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
         <div class="places__text">
@@ -68,7 +71,7 @@
           <h2 class="places__title">Мансийские Балваны</h2>
           <button type="button" class="places__like" aria-label="Отметить нравится"></button>
         </div>
-      </article>
+      </article> -->
     </section>
   </main>
 
@@ -76,9 +79,9 @@
     <p class="footer__author">© 2020 Mesto Russia</p>
   </footer>
 
-  <div class="pop-up">
+  <div class="pop-up" id="popupEdit">
     <div class="pop-up__container">
-      <button type="button" class="pop-up__close" aria-label="Закрыть"></button>
+      <button type="button" class="pop-up__close" aria-label="Закрыть" id="closeEdit"></button>
       <form class="pop-up__form" name="editProfile">
         <h2 class="pop-up__title">Редактировать профиль</h2>
         <input class="pop-up__input-text pop-up__input-text_content_name" name="newName" type="text" value="Жак-Ив Кусто" required placeholder="Ваше имя">
@@ -87,6 +90,30 @@
       </form>
     </div>
   </div>
+
+  <div class="pop-up" id="popupAddPlace">
+    <div class="pop-up__container">
+      <button type="button" class="pop-up__close" aria-label="Закрыть" id="closeAddPlace"></button>
+      <form class="pop-up__form" name="editProfile">
+        <h2 class="pop-up__title">Добавить место</h2>
+        <input class="pop-up__input-text pop-up__input-text_content_name" name="newName" type="text" value="" required placeholder="Название места">
+        <input class="pop-up__input-text pop-up__input-text_content_about-self" name="newAboutSelf" type="text" value="" placeholder="Адрес картинки">
+        <button type="submit" class="pop-up__save">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <template id='places__template'>
+    <article class="places__item">
+      <button class="places__delete"></button>
+      <img class="places__image">
+      <div class="places__text">
+        <h2 class="places__title"></h2>
+        <button type="button" class="places__like" aria-label="Отметить нравится"></button>
+      </div>
+    </article>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 </html>
