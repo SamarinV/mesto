@@ -41,12 +41,11 @@ const placeTemplate = document.querySelector('.places__template').content;
 function openPopup(el){
   el.classList.add('pop-up_open');
 };
+
 function closePopup(el){
     el.classList.remove('pop-up_open');
 };
-function saveAndClose(el) {
-  closePopup(el);
-}
+
 buttonEdit.addEventListener('click', (event) => {
   newName.value = Name.textContent;
   newAboutSelf.value = AboutSelf.textContent;
@@ -59,42 +58,38 @@ formEditProfile.addEventListener('submit', (event) => {
   event.preventDefault();
   Name.textContent = newName.value;
   AboutSelf.textContent = newAboutSelf.value;
-  saveAndClose(popupEdit);
+  closePopup(popupEdit);
 });
 
-function loadPlaces() {
-  for (let i in initialCards){
-    const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
-
-    placeElement.querySelector('.places__image').setAttribute('src', initialCards[i]['link']);
-    placeElement.querySelector('.places__image').setAttribute('alt', initialCards[i]['name']);
-    placeElement.querySelector('.places__title').textContent = initialCards[i]['name'];
-    placeElement.querySelector('.places__like').addEventListener('click', function (evt) {
+function createNewPlace(item) {
+  const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
+  placeElement.querySelector('.places__image').setAttribute('src', item.link);
+  placeElement.querySelector('.places__image').setAttribute('alt', item.name);
+  placeElement.querySelector('.places__title').textContent = item.name;
+  placeElement.querySelector('.places__like').addEventListener('click', function (evt) {
     placeElement.querySelector('.places__like').classList.toggle('places__like_active');
-    }); 
-    placesBox.prepend(placeElement);
-  }
+  }); 
+  return placeElement; 
 }
-loadPlaces();
-function addPlace() {
-
+function appendPlace(item){
+  placesBox.prepend(createNewPlace(item));
 }
 
-function addPlace() {
-  placeTemplate.querySelector('.places__title').textContent = newNamePlace.value;
-  placeTemplate.querySelector('.places__image').setAttribute('src', newImageUrl.value);
-  initialCards.unshift(placeTemplate);
-  loadPlaces();
-  closePopup(popupAddPlace);
-};
+initialCards.forEach(appendPlace);
 
-buttonAddPlace.addEventListener('click', (event) => {
+buttonAddPlace.addEventListener('click', () => {
   openPopup(popupAddPlace);
 });
-buttonCloseAddPlace.addEventListener('click', (event) => {
+buttonCloseAddPlace.addEventListener('click', () => {
   closePopup(popupAddPlace);
 });
 formAddPlace.addEventListener('submit', (event) => {
   event.preventDefault();
-  addPlace();
+  const item = {
+    name: newNamePlace.value,
+    link: newImageUrl.value
+  }
+  createNewPlace(item);
+  appendPlace(item);
+  closePopup(popupAddPlace);
 });
