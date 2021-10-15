@@ -1,0 +1,9 @@
+.pop-up__container_position_look-place {
+  width: auto;
+  max-width: 75vw;
+  max-height: 75vh;
+  border-radius: 0;
+  background-color: transparent;
+  color: #fff;
+  padding: 0;
+}
