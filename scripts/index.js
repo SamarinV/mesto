@@ -1,13 +1,13 @@
 const popupEdit = document.querySelector('.pop-up_edit');
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonCloseEdit = document.querySelector('.pop-up__close_edit');
-const Name = document.querySelector('.profile__name');
-const AboutSelf = document.querySelector('.profile__about-self');
-const newName = document.querySelector('.pop-up__input-text_profile-name');
-const newAboutSelf = document.querySelector('.pop-up__input-text_about-self');
+const profileName = document.querySelector('.profile__name');
+const profileAboutSelf = document.querySelector('.profile__about-self');
+const newProfileName = document.querySelector('.pop-up__input-text_profile-name');
+const newProfileAboutSelf = document.querySelector('.pop-up__input-text_about-self');
 const formEditProfile = document.querySelector('.pop-up__form_edit');
 
-const initialCards = [
+const arrayPlaces = [
   { name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
@@ -31,7 +31,7 @@ const popupAddPlace = document.querySelector('.pop-up_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
 const buttonCloseAddPlace = document.querySelector('.pop-up__close_add-place');
 const formAddPlace = document.querySelector('.pop-up__form_add-place');
-const placesBox = document.querySelector('.places');
+const boxForPlaces = document.querySelector('.places');
 
 const newNamePlace = document.querySelector('.pop-up__input-text_name-place');
 const newImageUrl = document.querySelector('.pop-up__input-text_url-image');
@@ -52,8 +52,8 @@ function closePopup(el){
 
 
 buttonEdit.addEventListener('click', () => {
-  newName.value = Name.textContent;
-  newAboutSelf.value = AboutSelf.textContent;
+  newProfileName.value = profileName.textContent;
+  newProfileAboutSelf.value = profileAboutSelf.textContent;
   openPopup(popupEdit);
 });
 
@@ -63,8 +63,8 @@ buttonCloseEdit.addEventListener('click', () => {
 
 formEditProfile.addEventListener('submit', (event) => {
   event.preventDefault();
-  Name.textContent = newName.value;
-  AboutSelf.textContent = newAboutSelf.value;
+  profileName.textContent = newProfileName.value;
+  profileAboutSelf.textContent = newProfileAboutSelf.value;
   closePopup(popupEdit);
 });
 
@@ -92,10 +92,10 @@ function createNewPlace(item) {
 }
 
 function appendPlace(item){
-  placesBox.prepend(createNewPlace(item));
+  boxForPlaces.prepend(createNewPlace(item));
 }
 
-initialCards.forEach(appendPlace);
+arrayPlaces.forEach(appendPlace);
 
 buttonAddPlace.addEventListener('click', () => {
   openPopup(popupAddPlace);
