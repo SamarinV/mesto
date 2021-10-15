@@ -79,31 +79,31 @@
     <p class="footer__author">© 2020 Mesto Russia</p>
   </footer>
 
-  <div class="pop-up" id="popupEdit">
+  <div class="pop-up pop-up_edit">
     <div class="pop-up__container">
-      <button type="button" class="pop-up__close" aria-label="Закрыть" id="closeEdit"></button>
-      <form class="pop-up__form" name="editProfile">
+      <button type="button" class="pop-up__close pop-up__close_edit" aria-label="Закрыть"></button>
+      <form class="pop-up__form pop-up__form_edit" name="editProfile">
         <h2 class="pop-up__title">Редактировать профиль</h2>
-        <input class="pop-up__input-text pop-up__input-text_content_name" name="newName" type="text" value="Жак-Ив Кусто" required placeholder="Ваше имя">
-        <input class="pop-up__input-text pop-up__input-text_content_about-self" name="newAboutSelf" type="text" value="Исследователь океана" placeholder="Расскажите о себе">
+        <input class="pop-up__input-text pop-up__input-text_profile-name" name="newName" type="text" value="Жак-Ив Кусто" required placeholder="Ваше имя">
+        <input class="pop-up__input-text pop-up__input-text_about-self" name="newAboutSelf" type="text" value="Исследователь океана" placeholder="Расскажите о себе">
         <button type="submit" class="pop-up__save">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <div class="pop-up" id="popupAddPlace">
+  <div class="pop-up pop-up_add-place">
     <div class="pop-up__container">
-      <button type="button" class="pop-up__close" aria-label="Закрыть" id="closeAddPlace"></button>
-      <form class="pop-up__form" name="editProfile">
+      <button type="button" class="pop-up__close pop-up__close_add-place" aria-label="Закрыть"></button>
+      <form class="pop-up__form pop-up__form_add-place" name="editProfile">
         <h2 class="pop-up__title">Добавить место</h2>
-        <input class="pop-up__input-text pop-up__input-text_content_name" name="newName" type="text" value="" required placeholder="Название места">
-        <input class="pop-up__input-text pop-up__input-text_content_about-self" name="newAboutSelf" type="text" value="" placeholder="Адрес картинки">
+        <input class="pop-up__input-text pop-up__input-text_name-place" name="newName" type="text" value="" required placeholder="Название места">
+        <input class="pop-up__input-text pop-up__input-text_url-image" name="newAboutSelf" type="text" value="" placeholder="Адрес картинки">
         <button type="submit" class="pop-up__save">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <template id='places__template'>
+  <template class='places__template'>
     <article class="places__item">
       <button class="places__delete"></button>
       <img class="places__image">
