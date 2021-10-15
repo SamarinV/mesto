@@ -37,35 +37,36 @@ const newNamePlace = document.querySelector('.pop-up__input-text_name-place');
 const newImageUrl = document.querySelector('.pop-up__input-text_url-image');
 const placeTemplate = document.querySelector('.places__template').content;
 
+const popupLookPlace = document.querySelector('.pop-up_position_look-place');
+const buttonCloseLookPlace = document.querySelector('.pop-up__close_look-place');
+const imageLookPlase = document.querySelector('.pop-up__image');
+const imageTitleLookPlace = document.querySelector('.pop-up__image-description');
+
 
 function openPopup(el){
   el.classList.add('pop-up_open');
 };
-
 function closePopup(el){
     el.classList.remove('pop-up_open');
 };
+
 
 buttonEdit.addEventListener('click', () => {
   newName.value = Name.textContent;
   newAboutSelf.value = AboutSelf.textContent;
   openPopup(popupEdit);
 });
+
 buttonCloseEdit.addEventListener('click', () => {
   closePopup(popupEdit);
 });
+
 formEditProfile.addEventListener('submit', (event) => {
   event.preventDefault();
   Name.textContent = newName.value;
   AboutSelf.textContent = newAboutSelf.value;
   closePopup(popupEdit);
 });
-
-
-const popupLookPlace = document.querySelector('.pop-up_position_look-place');
-const buttonCloseLookPlace = document.querySelector('.pop-up__close_look-place');
-const imageLookPlase = document.querySelector('.pop-up__image');
-const imageTitleLookPlace = document.querySelector('.pop-up__image-description');
 
 
 function createNewPlace(item) {
@@ -89,6 +90,7 @@ function createNewPlace(item) {
 
   return placeElement; 
 }
+
 function appendPlace(item){
   placesBox.prepend(createNewPlace(item));
 }
