@@ -61,10 +61,23 @@ formEditProfile.addEventListener('submit', (event) => {
   closePopup(popupEdit);
 });
 
+
+const popupLookPlace = document.querySelector('.pop-up_position_look-place');
+const buttonCloseLookPlace = document.querySelector('.pop-up__close_look-place');
+const imageLookPlase = document.querySelector('.pop-up__image');
+const imageTitleLookPlace = document.querySelector('.pop-up__image-description');
+
+
 function createNewPlace(item) {
   const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
   placeElement.querySelector('.places__image').setAttribute('src', item.link);
   placeElement.querySelector('.places__image').setAttribute('alt', item.name);
+  placeElement.querySelector('.places__image').addEventListener('click', function (evt) {
+    imageLookPlase.setAttribute('src', item.link);
+    imageLookPlase.setAttribute('alt', item.name)
+    imageTitleLookPlace.textContent = item.name;
+    openPopup(popupLookPlace);
+  });
   placeElement.querySelector('.places__title').textContent = item.name;
   placeElement.querySelector('.places__like').addEventListener('click', function (evt) {
     placeElement.querySelector('.places__like').classList.toggle('places__like_active');
@@ -92,4 +105,9 @@ formAddPlace.addEventListener('submit', (event) => {
   createNewPlace(item);
   appendPlace(item);
   closePopup(popupAddPlace);
+});
+
+
+buttonCloseLookPlace.addEventListener('click', () => {
+  closePopup(popupLookPlace);
 });
