@@ -7,26 +7,6 @@ const newProfileName = document.querySelector('.pop-up__input-text_profile-name'
 const newProfileAboutSelf = document.querySelector('.pop-up__input-text_about-self');
 const formEditProfile = document.querySelector('.pop-up__form_edit');
 
-const arrayPlaces = [
-  { name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  { name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  { name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  { name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  { name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  { name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
 const popupAddPlace = document.querySelector('.pop-up_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
 const buttonCloseAddPlace = document.querySelector('.pop-up__close_add-place');
@@ -85,11 +65,9 @@ function createNewPlace(item) {
   placeLike.addEventListener('click', () => {
     placeLike.classList.toggle('places__like_active');
   }); 
-
   placeElement.querySelector('.places__delete').addEventListener('click', (event) => {
     event.target.closest('.places__item').remove();
-  }); 
-
+  });
   return placeElement; 
 }
 
@@ -102,9 +80,11 @@ arrayPlaces.forEach(appendPlace);
 buttonAddPlace.addEventListener('click', () => {
   openPopup(popupAddPlace);
 });
+
 buttonCloseAddPlace.addEventListener('click', () => {
   closePopup(popupAddPlace);
 });
+
 formAddPlace.addEventListener('submit', (event) => {
   event.preventDefault();
   const item = {
@@ -114,7 +94,6 @@ formAddPlace.addEventListener('submit', (event) => {
   appendPlace(item);
   closePopup(popupAddPlace);
 });
-
 
 buttonCloseLookPlace.addEventListener('click', () => {
   closePopup(popupLookPlace);
