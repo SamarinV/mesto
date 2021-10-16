@@ -39,7 +39,7 @@ const placeTemplate = document.querySelector('.places__template').content;
 
 const popupLookPlace = document.querySelector('.pop-up_position_look-place');
 const buttonCloseLookPlace = document.querySelector('.pop-up__close_look-place');
-const imageLookPlase = document.querySelector('.pop-up__image');
+const imageLookPlace = document.querySelector('.pop-up__image');
 const imageTitleLookPlace = document.querySelector('.pop-up__image-description');
 
 
@@ -71,17 +71,19 @@ formEditProfile.addEventListener('submit', (event) => {
 
 function createNewPlace(item) {
   const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
-  placeElement.querySelector('.places__image').setAttribute('src', item.link);
-  placeElement.querySelector('.places__image').setAttribute('alt', item.name);
-  placeElement.querySelector('.places__image').addEventListener('click', () => {
-    imageLookPlase.setAttribute('src', item.link);
-    imageLookPlase.setAttribute('alt', item.name)
+  const placeImage = placeElement.querySelector('.places__image');
+  const placeLike = placeElement.querySelector('.places__like');
+  placeImage.setAttribute('src', item.link);
+  placeImage.setAttribute('alt', item.name);
+  placeImage.addEventListener('click', () => {
+    imageLookPlace.setAttribute('src', item.link);
+    imageLookPlace.setAttribute('alt', item.name)
     imageTitleLookPlace.textContent = item.name;
     openPopup(popupLookPlace);
   });
   placeElement.querySelector('.places__title').textContent = item.name;
-  placeElement.querySelector('.places__like').addEventListener('click', () => {
-    placeElement.querySelector('.places__like').classList.toggle('places__like_active');
+  placeLike.addEventListener('click', () => {
+    placeLike.classList.toggle('places__like_active');
   }); 
 
   placeElement.querySelector('.places__delete').addEventListener('click', (event) => {
@@ -109,7 +111,6 @@ formAddPlace.addEventListener('submit', (event) => {
     name: newNamePlace.value,
     link: newImageUrl.value
   }
-  createNewPlace(item);
   appendPlace(item);
   closePopup(popupAddPlace);
 });

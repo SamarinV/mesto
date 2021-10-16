@@ -4,4 +4,8 @@
   object-fit: cover;
   border-radius: 10px 10px 0 0;
   display: block;
+  transition: 0.4s ease-in;
+}
+.places__image:hover {
+  opacity: 0.8;
 }
