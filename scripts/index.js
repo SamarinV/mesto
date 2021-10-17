@@ -71,6 +71,11 @@ function createNewPlace(item) {
   return placeElement; 
 }
 
+function clearFormPlace(){
+  newNamePlace.value = '';
+  newImageUrl.value = '';
+};
+
 function appendPlace(item){
   boxForPlaces.prepend(createNewPlace(item));
 }
@@ -83,6 +88,7 @@ buttonAddPlace.addEventListener('click', () => {
 
 buttonCloseAddPlace.addEventListener('click', () => {
   closePopup(popupAddPlace);
+  clearFormPlace();
 });
 
 formAddPlace.addEventListener('submit', (event) => {
@@ -93,6 +99,7 @@ formAddPlace.addEventListener('submit', (event) => {
   }
   appendPlace(item);
   closePopup(popupAddPlace);
+  clearFormPlace();
 });
 
 buttonCloseLookPlace.addEventListener('click', () => {
