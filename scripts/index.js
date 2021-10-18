@@ -24,84 +24,84 @@ const imageTitleLookPlace = document.querySelector('.pop-up__image-description')
 
 
 function openPopup(el){
-  el.classList.add('pop-up_open');
+	el.classList.add('pop-up_open');
 };
 function closePopup(el){
-    el.classList.remove('pop-up_open');
+		el.classList.remove('pop-up_open');
 };
 
 
 buttonEdit.addEventListener('click', () => {
-  newProfileName.value = profileName.textContent;
-  newProfileAboutSelf.value = profileAboutSelf.textContent;
-  openPopup(popupEdit);
+	newProfileName.value = profileName.textContent;
+	newProfileAboutSelf.value = profileAboutSelf.textContent;
+	openPopup(popupEdit);
 });
 
 buttonCloseEdit.addEventListener('click', () => {
-  closePopup(popupEdit);
+	closePopup(popupEdit);
 });
 
 formEditProfile.addEventListener('submit', (event) => {
-  event.preventDefault();
-  profileName.textContent = newProfileName.value;
-  profileAboutSelf.textContent = newProfileAboutSelf.value;
-  closePopup(popupEdit);
+	event.preventDefault();
+	profileName.textContent = newProfileName.value;
+	profileAboutSelf.textContent = newProfileAboutSelf.value;
+	closePopup(popupEdit);
 });
 
 
 function createNewPlace(item) {
-  const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
-  const placeImage = placeElement.querySelector('.places__image');
-  const placeLike = placeElement.querySelector('.places__like');
-  placeImage.setAttribute('src', item.link);
-  placeImage.setAttribute('alt', item.name);
-  placeImage.addEventListener('click', () => {
-    imageLookPlace.setAttribute('src', item.link);
-    imageLookPlace.setAttribute('alt', item.name)
-    imageTitleLookPlace.textContent = item.name;
-    openPopup(popupLookPlace);
-  });
-  placeElement.querySelector('.places__title').textContent = item.name;
-  placeLike.addEventListener('click', () => {
-    placeLike.classList.toggle('places__like_active');
-  }); 
-  placeElement.querySelector('.places__delete').addEventListener('click', (event) => {
-    event.target.closest('.places__item').remove();
-  });
-  return placeElement; 
+	const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
+	const placeImage = placeElement.querySelector('.places__image');
+	const placeLike = placeElement.querySelector('.places__like');
+	placeImage.setAttribute('src', item.link);
+	placeImage.setAttribute('alt', item.name);
+	placeImage.addEventListener('click', () => {
+		imageLookPlace.setAttribute('src', item.link);
+		imageLookPlace.setAttribute('alt', item.name)
+		imageTitleLookPlace.textContent = item.name;
+		openPopup(popupLookPlace);
+	});
+	placeElement.querySelector('.places__title').textContent = item.name;
+	placeLike.addEventListener('click', () => {
+		placeLike.classList.toggle('places__like_active');
+	}); 
+	placeElement.querySelector('.places__delete').addEventListener('click', (event) => {
+		event.target.closest('.places__item').remove();
+	});
+	return placeElement; 
 }
 
 function clearFormPlace(){
-  newNamePlace.value = '';
-  newImageUrl.value = '';
+	newNamePlace.value = '';
+	newImageUrl.value = '';
 };
 
 function appendPlace(item){
-  boxForPlaces.prepend(createNewPlace(item));
+	boxForPlaces.prepend(createNewPlace(item));
 }
 
 arrayPlaces.forEach(appendPlace);
 
 buttonAddPlace.addEventListener('click', () => {
-  openPopup(popupAddPlace);
+	openPopup(popupAddPlace);
 });
 
 buttonCloseAddPlace.addEventListener('click', () => {
-  closePopup(popupAddPlace);
-  clearFormPlace();
+	closePopup(popupAddPlace);
+	clearFormPlace();
 });
 
 formAddPlace.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const item = {
-    name: newNamePlace.value,
-    link: newImageUrl.value
-  }
-  appendPlace(item);
-  closePopup(popupAddPlace);
-  clearFormPlace();
+	event.preventDefault();
+	const item = {
+		name: newNamePlace.value,
+		link: newImageUrl.value
+	}
+	appendPlace(item);
+	closePopup(popupAddPlace);
+	clearFormPlace();
 });
 
 buttonCloseLookPlace.addEventListener('click', () => {
-  closePopup(popupLookPlace);
+	closePopup(popupLookPlace);
 });
