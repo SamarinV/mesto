@@ -28,17 +28,17 @@ const imageTitleLookPlace = document.querySelector('.pop-up__image-description')
 //функционал placeholder у инпутов попап при фокусе
 
 //инпут с именем для нового места
-newNamePlace.addEventListener('focus', (e) => {
+newNamePlace.addEventListener('focus', () => {
 	newNamePlace.placeholder = '';
 });
-newNamePlace.addEventListener('blur', (e) => {
+newNamePlace.addEventListener('blur', () => {
 	newNamePlace.placeholder = mainNamePlacePlaceholder;
 });
 //инпут с адресом картинки для нового места
-newImageUrl.addEventListener('focus', (e) => {
+newImageUrl.addEventListener('focus', () => {
 	newImageUrl.placeholder = '';
 });
-newImageUrl.addEventListener('blur', (e) => {
+newImageUrl.addEventListener('blur', () => {
 	newImageUrl.placeholder = mainImageUrlPlaceholder;
 });
 
@@ -48,11 +48,11 @@ newImageUrl.addEventListener('blur', (e) => {
 //открытие попапа
 function openPopup(el){
 	el.classList.add('pop-up_open');
-};
+}
 //закрытие попапа
 function closePopup(el){
 		el.classList.remove('pop-up_open');
-};
+}
 
 //---------------------------------------------------------------------
 //функционал редактирования профиля
@@ -66,7 +66,7 @@ buttonEdit.addEventListener('click', () => {
 	popupEdit.addEventListener('click', (event) => {
     if ( !event.target.closest('.pop-up__container') || event.target === buttonCloseEdit) {
         closePopup(popupEdit);
-    };
+    }
 });
 //сохранить профиль и закрыть попап редактирования
 formEditProfile.addEventListener('submit', (event) => {
@@ -97,18 +97,18 @@ function createNewPlace(item) {
 	//функционал для лайков
 	placeLike.addEventListener('click', () => {
 		placeLike.classList.toggle('places__like_active');
-	}); 
+	});
 	//функционал для удаления места
 	placeElement.querySelector('.places__delete').addEventListener('click', (event) => {
 		event.target.closest('.places__item').remove();
 	});
-	return placeElement; 
+	return placeElement;
 }
 //очистка формы добавленя нового места
 function clearFormPlace(){
 	newNamePlace.value = '';
 	newImageUrl.value = '';
-};
+}
 //добавление новой карточки мест в начало
 function appendPlace(item){
 	boxForPlaces.prepend(createNewPlace(item));
@@ -126,7 +126,7 @@ popupAddPlace.addEventListener('click', (event) => {
     if ( !event.target.closest('.pop-up__container') || event.target === buttonCloseAddPlace) {
         closePopup(popupAddPlace);
 			 	clearFormPlace();
-    };
+    }
 });
 
 //кнопка сохранить новое место
@@ -148,5 +148,5 @@ formAddPlace.addEventListener('submit', (event) => {
 popupLookPlace.addEventListener('click', (event) => {
     if ( !event.target.closest('.pop-up__container') || event.target === buttonCloseLookPlace) {
         closePopup(popupLookPlace);
-    };
+    }
 });
