@@ -83,27 +83,32 @@ formEditProfile.addEventListener('submit', (event) => {
 function createNewPlace(item) {
 	const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
 	const placeImage = placeElement.querySelector('.places__image');
-	const placeLike = placeElement.querySelector('.places__like');
 	placeImage.setAttribute('src', item.link);
 	placeImage.setAttribute('alt', item.name);
-	//функционал открытия попапа просмотра места по событию клика на картинку
-	placeImage.addEventListener('click', () => {
-		imageLookPlace.setAttribute('src', item.link);
-		imageLookPlace.setAttribute('alt', item.name)
-		imageTitleLookPlace.textContent = item.name;
-		openPopup(popupLookPlace);
-	});
 	placeElement.querySelector('.places__title').textContent = item.name;
-	//функционал для лайков
-	placeLike.addEventListener('click', () => {
-		placeLike.classList.toggle('places__like_active');
-	});
-	//функционал для удаления места
-	placeElement.querySelector('.places__delete').addEventListener('click', (event) => {
-		event.target.closest('.places__item').remove();
-	});
 	return placeElement;
 }
+
+//функционал для карточек
+boxForPlaces.addEventListener('click', (evt) => {
+	//лайки
+	if (evt.target.classList.contains('places__like')){
+		evt.target.classList.toggle('places__like_active');
+	};
+	//удаление
+	if (evt.target.classList.contains('places__delete')){
+		evt.target.closest('.places__item').remove();
+	};
+	//открытие попапа просмотра места по клику на картинку
+	if (evt.target.classList.contains('places__image')){
+		console.log(evt);
+		imageLookPlace.setAttribute('src', evt.target.attributes[1].nodeValue);
+		imageLookPlace.setAttribute('alt', evt.target.alt);
+		imageTitleLookPlace.textContent = evt.target.alt;
+		openPopup(popupLookPlace);
+	};
+});
+
 //очистка формы добавленя нового места
 function clearFormPlace(){
 	newNamePlace.value = '';
@@ -114,7 +119,7 @@ function appendPlace(item){
 	boxForPlaces.prepend(createNewPlace(item));
 }
 //перебор массива мест из ./scripts/arrayPlaces.js и их добавление
-arrayPlaces.forEach(appendPlace);
+arrayPlaces.reverse().forEach(appendPlace);
 
 //кнопка открыть попап нового места
 buttonAddPlace.addEventListener('click', () => {
