@@ -1,28 +1,28 @@
-const popupEdit = document.querySelector('.pop-up_edit');
+const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__button-edit');
-const buttonCloseEdit = document.querySelector('.pop-up__close_edit');
+const buttonCloseEdit = document.querySelector('.popup__close_edit');
 const profileName = document.querySelector('.profile__name');
 const profileAboutSelf = document.querySelector('.profile__about-self');
-const formEditProfile = document.querySelector('.pop-up__form_edit');
-const inputEditProfileName = document.querySelector('.pop-up__input-text_profile-name');
-const inputEditProfileAbout = document.querySelector('.pop-up__input-text_about-self');
+const formEditProfile = document.querySelector('.popup__form_edit');
+const inputEditProfileName = document.querySelector('.popup__input_profile-name');
+const inputEditProfileAbout = document.querySelector('.popup__input_about-self');
 
-const popupAddPlace = document.querySelector('.pop-up_add-place');
+const popupAddPlace = document.querySelector('.popup_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
-const buttonCloseAddPlace = document.querySelector('.pop-up__close_add-place');
-const formAddPlace = document.querySelector('.pop-up__form_add-place');
+const buttonCloseAddPlace = document.querySelector('.popup__close_add-place');
+const formAddPlace = document.querySelector('.popup__form_add-place');
 const boxForPlaces = document.querySelector('.places');
 
-const newNamePlace = document.querySelector('.pop-up__input-text_name-place');
+const newNamePlace = document.querySelector('.popup__input_name-place');
 const mainNamePlacePlaceholder = newNamePlace.placeholder;
-const newImageUrl = document.querySelector('.pop-up__input-text_url-image');
+const newImageUrl = document.querySelector('.popup__input_url-image');
 const mainImageUrlPlaceholder = newImageUrl.placeholder;
 const placeTemplate = document.querySelector('.places__template').content;
 
-const popupLookPlace = document.querySelector('.pop-up_position_look-place');
-const buttonCloseLookPlace = document.querySelector('.pop-up__close_look-place');
-const imageLookPlace = document.querySelector('.pop-up__image');
-const imageTitleLookPlace = document.querySelector('.pop-up__image-description');
+const popupLookPlace = document.querySelector('.popup_position_look-place');
+const buttonCloseLookPlace = document.querySelector('.popup__close_look-place');
+const imageLookPlace = document.querySelector('.popup__image');
+const imageTitleLookPlace = document.querySelector('.popup__image-description');
 
 //--------------------------------------------------------------------
 
@@ -32,11 +32,11 @@ const imageTitleLookPlace = document.querySelector('.pop-up__image-description')
 
 //открытие попапа
 function openPopup(el){
-	el.classList.add('pop-up_open');
+	el.classList.add('popup_open');
 }
 //закрытие попапа
 function closePopup(el){
-		el.classList.remove('pop-up_open');
+		el.classList.remove('popup_open');
 }
 //закрытие по escape
 const keyHandler = (el) => {
@@ -62,7 +62,7 @@ buttonEdit.addEventListener('click', () => {
 });
 //закрыть редактирование профиля по нажатию на крестик или на оверлей
 	popupEdit.addEventListener('click', (e) => {
-		if ( !e.target.closest('.pop-up__container') || e.target === buttonCloseEdit) {
+		if ( !e.target.closest('.popup__container') || e.target === buttonCloseEdit) {
 			closePopup(popupEdit);
 		}
 });
@@ -124,7 +124,7 @@ boxForPlaces.addEventListener('click', (e) => {
 
 //закрыть попап lookPlace при клике на кнопку закрыть или на оверлей
 popupLookPlace.addEventListener('click', (e) => {
-	if ( !e.target.closest('.pop-up__container') || e.target === buttonCloseLookPlace) {
+	if ( !e.target.closest('.popup__container') || e.target === buttonCloseLookPlace) {
 		closePopup(popupLookPlace);
 	}
 });
@@ -154,7 +154,7 @@ newImageUrl.addEventListener('blur', () => {
 
 //закрыть попап addPlace при клике на кнопку закрыть или на оверлей
 popupAddPlace.addEventListener('click', (e) => {
-		if ( !e.target.closest('.pop-up__container') || e.target === buttonCloseAddPlace) {
+		if ( !e.target.closest('.popup__container') || e.target === buttonCloseAddPlace) {
 			closePopup(popupAddPlace);
 			 	clearFormPlace();
 		}
@@ -176,15 +176,3 @@ formAddPlace.addEventListener('submit', (e) => {
 
 
 
-
-formEditProfile.addEventListener('submit', function (e) {
-  // Отменим стандартное поведение
-  e.preventDefault();
-});
-
-// Слушатель события input
-inputEditProfileName.addEventListener('input', function (evt) {
-  // Выведем в консоль значение свойства validity.valid поля ввода, 
-  // на котором слушаем событие input
-  console.log(evt.target.validity.valid);
-}); 
