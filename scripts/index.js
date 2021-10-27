@@ -3,9 +3,9 @@ const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonCloseEdit = document.querySelector('.pop-up__close_edit');
 const profileName = document.querySelector('.profile__name');
 const profileAboutSelf = document.querySelector('.profile__about-self');
-const newProfileName = document.querySelector('.pop-up__input-text_profile-name');
-const newProfileAboutSelf = document.querySelector('.pop-up__input-text_about-self');
 const formEditProfile = document.querySelector('.pop-up__form_edit');
+const inputEditProfileName = document.querySelector('.pop-up__input-text_profile-name');
+const inputEditProfileAbout = document.querySelector('.pop-up__input-text_about-self');
 
 const popupAddPlace = document.querySelector('.pop-up_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
@@ -54,8 +54,8 @@ const keyHandler = (el) => {
 //функционал редактирования профиля
 //открытие по клику
 buttonEdit.addEventListener('click', () => {
-	newProfileName.value = profileName.textContent;
-	newProfileAboutSelf.value = profileAboutSelf.textContent;
+	inputEditProfileName.value = profileName.textContent;
+	inputEditProfileAbout.value = profileAboutSelf.textContent;
 	openPopup(popupEdit);
 	//закрытие по escape
 	keyHandler(popupEdit);
@@ -69,8 +69,8 @@ buttonEdit.addEventListener('click', () => {
 //сохранить профиль и закрыть попап редактирования
 formEditProfile.addEventListener('submit', (e) => {
 	e.preventDefault();
-	profileName.textContent = newProfileName.value;
-	profileAboutSelf.textContent = newProfileAboutSelf.value;
+	profileName.textContent = inputEditProfileName.value;
+	profileAboutSelf.textContent = inputEditProfileAbout.value;
 	closePopup(popupEdit);
 });
 
@@ -173,3 +173,18 @@ formAddPlace.addEventListener('submit', (e) => {
 });
 
 
+
+
+
+
+formEditProfile.addEventListener('submit', function (e) {
+  // Отменим стандартное поведение
+  e.preventDefault();
+});
+
+// Слушатель события input
+inputEditProfileName.addEventListener('input', function (evt) {
+  // Выведем в консоль значение свойства validity.valid поля ввода, 
+  // на котором слушаем событие input
+  console.log(evt.target.validity.valid);
+}); 

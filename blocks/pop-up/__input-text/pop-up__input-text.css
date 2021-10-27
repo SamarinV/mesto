@@ -12,9 +12,9 @@
 .pop-up__input-text:last-of-type {
   margin-bottom: 0;
 }
-.pop-up__input-text:invalid {
+/* .pop-up__input-text:invalid {
   border-bottom: 1px solid red;
-}
+} */
 @media screen and (max-width: 767px) {
   .pop-up__input-text {
     width: 238px;
