@@ -1,22 +1,17 @@
-.pop-up__input-text {
+.popup__input {
   width: 358px;
   height: 27px;
   box-sizing: border-box;
-  margin-bottom: 30px;
   border: none;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
   font-size: 14px;
   line-height: 17px;
   padding-bottom: 8px;
+  position: relative;
 }
-.pop-up__input-text:last-of-type {
-  margin-bottom: 0;
-}
-/* .pop-up__input-text:invalid {
-  border-bottom: 1px solid red;
-} */
+
 @media screen and (max-width: 767px) {
-  .pop-up__input-text {
+  .popup__input {
     width: 238px;
   }
 }
