@@ -13,7 +13,7 @@
   margin-bottom: 0;
 }
 .pop-up__input-text:invalid {
-  border: 1px solid red;
+  border-bottom: 1px solid red;
 }
 @media screen and (max-width: 767px) {
   .pop-up__input-text {
