@@ -40,7 +40,7 @@
 	<div class="popup popup_edit">
 		<div class="popup__container">
 			<button type="button" class="popup__close popup__close_edit" aria-label="Закрыть"></button>
-			<form class="popup__form popup__form_edit" name="editProfile" novalidate>
+			<form class="popup__form popup__form_edit" name="editProfile">
 				<h2 class="popup__title">Редактировать профиль</h2>
 				<label class="popup__form-field">
 					<input autocomplete="off" id="input-profile-name" class="popup__input popup__input_profile-name" name="newName" type="text" value="Жак-Ив Кусто" minlength="2" maxlength="40" required placeholder="Ваше имя">
@@ -68,7 +68,7 @@
 					<input autocomplete="off" id="input-place-url" class="popup__input popup__input_url-image" name="newImagePlace" type="url" required placeholder="Ссылка на картинку">
 					<span class="input-place-url-error popup__input-error"></span>
 				</label>
-					<button type="submit" class="popup__save">Создать</button>
+					<button type="submit" class="popup__save popup__save_disabled">Создать</button>
 			</form>
 		</div>
 	</div>
@@ -93,6 +93,7 @@
 	</template>
 
 	<script src="./scripts/arrayPlaces.js"></script>
+	<script src="./scripts/validate.js"></script>
 	<script src="./scripts/index.js"></script>
 </body>
 </html>

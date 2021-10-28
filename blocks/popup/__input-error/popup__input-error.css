@@ -3,7 +3,7 @@
   line-height: 15px;
   color: #ff0000;
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% + 4px);
   left: 0;
   opacity: 0;
   transition: 0.3s;
