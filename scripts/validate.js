@@ -6,7 +6,7 @@ const mestoSettings = {
   inputErrorClass: 'popup__input_type_error',
   errorClassActive: 'popup__input-error_active'
 };
-//находим span к каждому input и показываем error
+//находим span к каждому input и показываем error и кнопку
 const showInputError = (formElement, inputElement, errorMessage, errorClassActive, inputErrorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 	errorElement.textContent = errorMessage;
@@ -14,7 +14,7 @@ const showInputError = (formElement, inputElement, errorMessage, errorClassActiv
 	inputElement.classList.add(inputErrorClass);
 };
 
-//находим span к каждому инпуту и прячем error
+//находим span к каждому инпуту и прячем errorn и кнопку
 const hideInputError = (formElement, inputElement, errorClassActive, inputErrorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.classList.remove(errorClassActive);
@@ -39,17 +39,13 @@ const hasInvalidInput = (inputList) => {
 };
 
 //ищем инпуты выбранной формы через массив инпутов для каждой формы для дальнейшей валидации
-const setEventListeners = (formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass}) => {
+const setEventListeners = (formElement, inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-	const buttonElement = formElement.querySelector(submitButtonSelector);
-	
   inputList.forEach((inputElement) => {
 		//состояние кнопки сохранить/добавить для выбранной формы
-		// toggleButtonState(inputList, buttonElement, inactiveButtonClass);
-		//убираем надпись error(нужно при открытии попапа)
-    hideInputError(formElement, inputElement, errorClassActive, inputErrorClass);
-    inputElement.addEventListener('input', () => {
-			
+		const buttonElement = formElement.querySelector(submitButtonSelector);
+		toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+    inputElement.addEventListener('input', () => {			
       isValid(formElement, inputElement, errorClassActive, inputErrorClass)
 			toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
@@ -57,10 +53,12 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, in
 };
 // меняем кнопку submit у форм
 function toggleButtonState (inputList, buttonElement, inactiveButtonClass){
- if (hasInvalidInput(inputList)) {
-  buttonElement.classList.add(inactiveButtonClass);
-} else {
-  buttonElement.classList.remove(inactiveButtonClass);
+ if (hasInvalidInput(inputList)) {//выключение кнопки
+  // buttonElement.classList.add(inactiveButtonClass); без novalidate-------------
+	buttonElement.disabled = true;
+} else {													//включение кнопки
+  // buttonElement.classList.remove(inactiveButtonClass); без novalidate----------
+	buttonElement.disabled = false;
 } 
 }
 
@@ -71,7 +69,7 @@ function enableValidation ({formSelector, inputSelector, submitButtonSelector, i
     formElement.addEventListener('submit', (e) => {
       e.preventDefault();
     });
-    setEventListeners(formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass});
+    setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass);
   });
 };
 
