@@ -24,8 +24,7 @@ const buttonCloseLookPlace = document.querySelector('.popup__close_look-place');
 const imageLookPlace = document.querySelector('.popup__image');
 const imageTitleLookPlace = document.querySelector('.popup__image-description');
 
-const formElement = document.querySelector('.popup__form');
-const inputElement = document.querySelector('.popup__input');
+
 //--------------------------------------------------------------------
 
 
@@ -34,7 +33,6 @@ const inputElement = document.querySelector('.popup__input');
 
 //открытие попапа
 function openPopup(el){
-	enableValidation();
 	el.classList.add('popup_open');
 }
 //закрытие попапа
