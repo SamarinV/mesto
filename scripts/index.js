@@ -38,19 +38,65 @@ function openPopup(el){
 //закрытие попапа
 function closePopup(el){
 		el.classList.remove('popup_open');
-}
-//закрытие по escape
-const keyHandler = (el) => {
-	document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape'){
-		if(el === popupAddPlace){
-			closePopup(el);
-			clearFormPlace();
+		if(el !== popupLookPlace){
+			clearError(el);
 		}
-		else closePopup(el);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape'){
+		const popupCloseEscape = document.querySelector('.popup_open');
+		console.log(popupCloseEscape);
+		popupCloseEscape.classList.remove('popup_open');
+	// 	if( === popupAddPlace){
+	// 		closePopup(el);
+	// 		clearFormPlace();
+	// 	}
+	// 	else closePopup(el);
+	// }
 	}
 });
+//закрытие по escape
+// const keyHandler = (el) => {
+// 	document.addEventListener('keydown', (e) => {
+//   if (e.key === 'Escape'){
+// 		if(el === popupAddPlace){
+// 			closePopup(el);
+// 			clearFormPlace();
+// 		}
+// 		else closePopup(el);
+// 	}
+// });
+// }
+
+// очистка error в попапах
+const clearError = (el) => {
+	//убирает error у span закрываемого попапа
+	const elementSpanError = el.querySelectorAll('span');
+	for (let i = 0; i<elementSpanError.length; i++){
+			elementSpanError[i].classList.remove('popup__input-error_active');
+		}
+	//убирает error у input закрываемого попапа
+	const elementInputError = el.querySelectorAll('input');
+	for (let i = 0; i<elementInputError.length; i++){
+			elementInputError[i].classList.remove('popup__input_type_error');
+		}
+	// ставит дефолтную кнопку submit у закрываемого попапа
+	const elementButtonError = el.querySelector('.popup__save');
+	console.log(elementButtonError);
+	if (el === popupAddPlace){
+		elementButtonError.classList.add('popup__save_disabled');
+		console.log("кнопка place выключена");
+		console.log(elementButtonError);
+	}
+	else {
+		elementButtonError.classList.remove('popup__save_disabled');
+		console.log("кнопка edit включена");
+		console.log(elementButtonError);
+ }
 }
+
+
 //---------------------------------------------------------------------
 //функционал редактирования профиля
 //открытие по клику
@@ -59,14 +105,16 @@ buttonEdit.addEventListener('click', () => {
 	inputEditProfileAbout.value = profileAboutSelf.textContent;
 	openPopup(popupEdit);
 	// слушаем функцию закрытия по escape
-	keyHandler(popupEdit);
+	// keyHandler(popupEdit);
 });
+
 //закрыть редактирование профиля по нажатию на крестик или на оверлей
 	popupEdit.addEventListener('click', (e) => {
 		if ( !e.target.closest('.popup__container') || e.target === buttonCloseEdit) {
 			closePopup(popupEdit);
 		}
 });
+
 //сохранить профиль и закрыть попап редактирования
 formEditProfile.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -96,12 +144,6 @@ function appendPlace(item){
 //перебор массива мест из ./scripts/arrayPlaces.js и их добавление
 arrayPlaces.reverse().forEach(appendPlace);
 
-//очистка формы попапа addPlace
-function clearFormPlace(){
-	newNamePlace.value = '';
-	newImageUrl.value = '';
-}
-
 //слушаем в карточках лайки, удаление и открытие попапа lookPlace
 boxForPlaces.addEventListener('click', (e) => {
 	//лайки
@@ -119,7 +161,7 @@ boxForPlaces.addEventListener('click', (e) => {
 		imageTitleLookPlace.textContent = e.target.alt;
 		openPopup(popupLookPlace);
 		//слушаем его закрытие по Escape
-		keyHandler(popupLookPlace);
+	// 	keyHandler(popupLookPlace);
 	};
 });
 
@@ -132,9 +174,11 @@ popupLookPlace.addEventListener('click', (e) => {
 
 //открыть попап addPlace по кнопке
 buttonAddPlace.addEventListener('click', () => {
+	newNamePlace.value = '';
+	newImageUrl.value = '';
 	openPopup(popupAddPlace);
 	//слушаем закрытие по Escape
-	keyHandler(popupAddPlace);
+	// keyHandler(popupAddPlace);
 });
 
 //placeholder у инпутов addPlace при фокусе
@@ -157,7 +201,6 @@ newImageUrl.addEventListener('blur', () => {
 popupAddPlace.addEventListener('click', (e) => {
 		if ( !e.target.closest('.popup__container') || e.target === buttonCloseAddPlace) {
 			closePopup(popupAddPlace);
-			 	clearFormPlace();
 		}
 });
 
@@ -172,6 +215,4 @@ formAddPlace.addEventListener('submit', (e) => {
 	closePopup(popupAddPlace);
 	clearFormPlace();
 });
-
-
 
