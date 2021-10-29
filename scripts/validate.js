@@ -3,29 +3,31 @@ const mestoSettings = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
   inactiveButtonClass: 'popup__save_disabled',
-  // inputErrorClass: 'popup__input_type_error',
+  inputErrorClass: 'popup__input_type_error',
   errorClassActive: 'popup__input-error_active'
 };
 //находим span к каждому input и показываем error
-const showInputError = (formElement, inputElement, errorMessage, errorClassActive) => {
+const showInputError = (formElement, inputElement, errorMessage, errorClassActive, inputErrorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 	errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClassActive);
+	inputElement.classList.add(inputErrorClass);
 };
 
 //находим span к каждому инпуту и прячем error
-const hideInputError = (formElement, inputElement, errorClassActive) => {
+const hideInputError = (formElement, inputElement, errorClassActive, inputErrorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.classList.remove(errorClassActive);
   errorElement.textContent = '';
+	inputElement.classList.remove(inputErrorClass);
 }; 
 
 // валидация input
-const isValid = (formElement, inputElement, errorClassActive) => {
+const isValid = (formElement, inputElement, errorClassActive, inputErrorClass) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, errorClassActive);
+    showInputError(formElement, inputElement, inputElement.validationMessage, errorClassActive, inputErrorClass);
   } else {
-    hideInputError(formElement, inputElement, errorClassActive);
+    hideInputError(formElement, inputElement, errorClassActive, inputErrorClass);
   }
 }; 
 
@@ -37,7 +39,7 @@ const hasInvalidInput = (inputList) => {
 };
 
 //ищем инпуты выбранной формы через массив инпутов для каждой формы для дальнейшей валидации
-const setEventListeners = (formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive}) => {
+const setEventListeners = (formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass}) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
 	const buttonElement = formElement.querySelector(submitButtonSelector);
 	
@@ -45,18 +47,16 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, in
 		//состояние кнопки сохранить/добавить для выбранной формы
 		// toggleButtonState(inputList, buttonElement, inactiveButtonClass);
 		//убираем надпись error(нужно при открытии попапа)
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, errorClassActive, inputErrorClass);
     inputElement.addEventListener('input', () => {
 			
-      isValid(formElement, inputElement, errorClassActive)
+      isValid(formElement, inputElement, errorClassActive, inputErrorClass)
 			toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
   });
 };
 // меняем кнопку submit у форм
 function toggleButtonState (inputList, buttonElement, inactiveButtonClass){
-	
-		console.log(buttonElement);
  if (hasInvalidInput(inputList)) {
   buttonElement.classList.add(inactiveButtonClass);
 } else {
@@ -65,13 +65,13 @@ function toggleButtonState (inputList, buttonElement, inactiveButtonClass){
 }
 
 //ищем выбранную форму для валидации через массив всех форм
-function enableValidation ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive}) {
+function enableValidation ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass}) {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (e) => {
       e.preventDefault();
     });
-    setEventListeners(formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive});
+    setEventListeners(formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, errorClassActive, inputErrorClass});
   });
 };
 
