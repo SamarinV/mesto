@@ -6,6 +6,7 @@ const mestoSettings = {
   inputErrorClass: 'popup__input_type_error',
   errorClassActive: 'popup__input-error_active'
 };
+
 //находим span к каждому input и показываем error
 const showInputError = (formElement, inputElement, errorMessage, errorClassActive, inputErrorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -53,6 +54,7 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, in
     });
   });
 };
+
 // меняем кнопку submit у форм
 function toggleButtonState (inputList, buttonElement, inactiveButtonClass){
  if (hasInvalidInput(inputList)) {

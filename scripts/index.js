@@ -24,10 +24,6 @@ const buttonCloseLookPlace = document.querySelector('.popup__close_look-place');
 const imageLookPlace = document.querySelector('.popup__image');
 const imageTitleLookPlace = document.querySelector('.popup__image-description');
 
-
-//--------------------------------------------------------------------
-
-
 //---------------------------------------------------------------------
 //общий функционал для попапов
 
@@ -43,31 +39,22 @@ function closePopup(el){
 		}
 }
 
+//закрытие попапов на нажатие Escape
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape'){
 		const popupCloseEscape = document.querySelector('.popup_open');
-		console.log(popupCloseEscape);
-		popupCloseEscape.classList.remove('popup_open');
-	// 	if( === popupAddPlace){
-	// 		closePopup(el);
-	// 		clearFormPlace();
-	// 	}
-	// 	else closePopup(el);
-	// }
+		console.log(e.target);
+		if(popupCloseEscape.classList.contains('popup_add-place')){
+			closePopup(popupAddPlace);
+		}
+		if(popupCloseEscape.classList.contains('popup_edit')){
+			closePopup(popupEdit);
+		}
+		else {
+			closePopup(popupLookPlace);
+		}
 	}
 });
-//закрытие по escape
-// const keyHandler = (el) => {
-// 	document.addEventListener('keydown', (e) => {
-//   if (e.key === 'Escape'){
-// 		if(el === popupAddPlace){
-// 			closePopup(el);
-// 			clearFormPlace();
-// 		}
-// 		else closePopup(el);
-// 	}
-// });
-// }
 
 // очистка error в попапах
 const clearError = (el) => {
@@ -83,29 +70,22 @@ const clearError = (el) => {
 		}
 	// ставит дефолтную кнопку submit у закрываемого попапа
 	const elementButtonError = el.querySelector('.popup__save');
-	console.log(elementButtonError);
-	if (el === popupAddPlace){
+	if (el === popupAddPlace){	//если попап Добавления места
 		elementButtonError.classList.add('popup__save_disabled');
-		console.log("кнопка place выключена");
-		console.log(elementButtonError);
 	}
-	else {
+	else {						//если оставшийся попап Редактирования профиля
 		elementButtonError.classList.remove('popup__save_disabled');
-		console.log("кнопка edit включена");
-		console.log(elementButtonError);
  }
 }
 
-
 //---------------------------------------------------------------------
 //функционал редактирования профиля
+
 //открытие по клику
 buttonEdit.addEventListener('click', () => {
 	inputEditProfileName.value = profileName.textContent;
 	inputEditProfileAbout.value = profileAboutSelf.textContent;
 	openPopup(popupEdit);
-	// слушаем функцию закрытия по escape
-	// keyHandler(popupEdit);
 });
 
 //закрыть редактирование профиля по нажатию на крестик или на оверлей
@@ -160,8 +140,6 @@ boxForPlaces.addEventListener('click', (e) => {
 		imageLookPlace.setAttribute('alt', e.target.alt);
 		imageTitleLookPlace.textContent = e.target.alt;
 		openPopup(popupLookPlace);
-		//слушаем его закрытие по Escape
-	// 	keyHandler(popupLookPlace);
 	};
 });
 
@@ -177,8 +155,6 @@ buttonAddPlace.addEventListener('click', () => {
 	newNamePlace.value = '';
 	newImageUrl.value = '';
 	openPopup(popupAddPlace);
-	//слушаем закрытие по Escape
-	// keyHandler(popupAddPlace);
 });
 
 //placeholder у инпутов addPlace при фокусе
