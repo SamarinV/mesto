@@ -14,9 +14,7 @@ const formAddPlace = document.querySelector('.popup__form_add-place');
 const boxForPlaces = document.querySelector('.places');
 
 const newNamePlace = document.querySelector('.popup__input_name-place');
-const mainNamePlacePlaceholder = newNamePlace.placeholder;
 const newImageUrl = document.querySelector('.popup__input_url-image');
-const mainImageUrlPlaceholder = newImageUrl.placeholder;
 const placeTemplate = document.querySelector('.places__template').content;
 
 const popupLookPlace = document.querySelector('.popup_position_look-place');
@@ -43,11 +41,10 @@ function closePopup(el){
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape'){
 		const popupCloseEscape = document.querySelector('.popup_open');
-		console.log(e.target);
 		if(popupCloseEscape.classList.contains('popup_add-place')){
 			closePopup(popupAddPlace);
 		}
-		if(popupCloseEscape.classList.contains('popup_edit')){
+		else if(popupCloseEscape.classList.contains('popup_edit')){
 			closePopup(popupEdit);
 		}
 		else {
@@ -59,15 +56,13 @@ document.addEventListener('keydown', (e) => {
 // очистка error в попапах
 const clearError = (el) => {
 	//убирает error у span закрываемого попапа
-	const elementSpanError = el.querySelectorAll('span');
-	for (let i = 0; i<elementSpanError.length; i++){
-			elementSpanError[i].classList.remove('popup__input-error_active');
-		}
+	const elementsSpanError = el.querySelectorAll('span');
+	elementsSpanError.forEach(err => err.classList.remove('popup__input-error_active'));
+
 	//убирает error у input закрываемого попапа
-	const elementInputError = el.querySelectorAll('input');
-	for (let i = 0; i<elementInputError.length; i++){
-			elementInputError[i].classList.remove('popup__input_type_error');
-		}
+	const elementsInputError = el.querySelectorAll('input');
+	elementsInputError.forEach(err => err.classList.remove('popup__input_type_error')) 
+	
 	// ставит дефолтную кнопку submit у закрываемого попапа
 	const elementButtonError = el.querySelector('.popup__save');
 	if (el === popupAddPlace){	//если попап Добавления места
@@ -126,17 +121,17 @@ arrayPlaces.reverse().forEach(appendPlace);
 
 //слушаем в карточках лайки, удаление и открытие попапа lookPlace
 boxForPlaces.addEventListener('click', (e) => {
-	//лайки
+	//изменение лайков
 	if (e.target.classList.contains('places__like')){
 		e.target.classList.toggle('places__like_active');
 	};
-	//удаление
+	//удаление карточки
 	if (e.target.classList.contains('places__delete')){
 		e.target.closest('.places__item').remove();
 	};
 	//открытие попапа lookPlace
 	if (e.target.classList.contains('places__image')){
-		imageLookPlace.setAttribute('src', e.target.attributes[1].nodeValue);
+		imageLookPlace.setAttribute('src', e.target.getAttribute('src'));
 		imageLookPlace.setAttribute('alt', e.target.alt);
 		imageTitleLookPlace.textContent = e.target.alt;
 		openPopup(popupLookPlace);
@@ -155,22 +150,6 @@ buttonAddPlace.addEventListener('click', () => {
 	newNamePlace.value = '';
 	newImageUrl.value = '';
 	openPopup(popupAddPlace);
-});
-
-//placeholder у инпутов addPlace при фокусе
-//инпут с именем для нового места
-newNamePlace.addEventListener('focus', () => {
-	newNamePlace.placeholder = '';
-});
-newNamePlace.addEventListener('blur', () => {
-	newNamePlace.placeholder = mainNamePlacePlaceholder;
-});
-//инпут с адресом картинки для нового места
-newImageUrl.addEventListener('focus', () => {
-	newImageUrl.placeholder = '';
-});
-newImageUrl.addEventListener('blur', () => {
-	newImageUrl.placeholder = mainImageUrlPlaceholder;
 });
 
 //закрыть попап addPlace при клике на кнопку закрыть или на оверлей
