@@ -57,11 +57,11 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, in
 
 // меняем кнопку submit у форм
 function toggleButtonState (inputList, buttonElement, inactiveButtonClass){
- if (hasInvalidInput(inputList)) {
-  buttonElement.classList.add(inactiveButtonClass);
-} else {
-  buttonElement.classList.remove(inactiveButtonClass);
-} 
+	if (hasInvalidInput(inputList)) {
+  	buttonElement.classList.add(inactiveButtonClass);
+	} else {
+  	buttonElement.classList.remove(inactiveButtonClass);
+	} 
 }
 
 //ищем выбранную форму для валидации через массив всех форм
