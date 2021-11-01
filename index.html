@@ -40,7 +40,7 @@
 	<div class="popup popup_edit">
 		<div class="popup__container">
 			<button type="button" class="popup__close popup__close_edit" aria-label="Закрыть"></button>
-			<form class="popup__form popup__form_edit" name="editProfile">
+			<form class="popup__form popup__form_edit" name="editProfile" novalidate>
 				<h2 class="popup__title">Редактировать профиль</h2>
 				<label class="popup__form-field">
 					<input autocomplete="off" id="input-profile-name" class="popup__input popup__input_profile-name" name="newName" type="text" value="Жак-Ив Кусто" minlength="2" maxlength="40" required placeholder="Ваше имя">
@@ -58,7 +58,7 @@
 	<div class="popup popup_add-place">
 		<div class="popup__container">
 			<button type="button" class="popup__close popup__close_add-place" aria-label="Закрыть"></button>
-			<form class="popup__form popup__form_add-place" name="AddPlace">
+			<form class="popup__form popup__form_add-place" name="AddPlace" novalidate>
 				<h2 class="popup__title">Новое место</h2>
 				<label class="popup__form-field">
 					<input autocomplete="off" id="input-place-name" class="popup__input popup__input_name-place" name="newNamePlace" type="text" minlength="2" maxlength="30" required placeholder="Название">

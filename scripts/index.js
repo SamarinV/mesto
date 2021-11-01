@@ -67,9 +67,11 @@ const clearError = (el) => {
 	const elementButtonError = el.querySelector('.popup__save');
 	if (el === popupAddPlace){	//если попап Добавления места
 		elementButtonError.classList.add('popup__save_disabled');
+		elementButtonError.setAttribute('disabled', 'true');
 	}
 	else {						//если оставшийся попап Редактирования профиля
 		elementButtonError.classList.remove('popup__save_disabled');
+		elementButtonError.removeAttribute('disabled', 'true');
  }
 }
 
