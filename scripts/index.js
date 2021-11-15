@@ -1,6 +1,8 @@
 import {FormValidator, formSetting} from './validate.js';
 import {arrayPlaces} from './arrayPlaces.js';
+import {Card} from './CardGenerate.js';
 
+//editProfile
 const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonCloseEdit = document.querySelector('.popup__close_edit');
@@ -9,46 +11,51 @@ const profileAboutSelf = document.querySelector('.profile__about-self');
 const formEditProfile = document.querySelector('.popup__form_edit');
 const inputEditProfileName = document.querySelector('.popup__input_profile-name');
 const inputEditProfileAbout = document.querySelector('.popup__input_about-self');
-
+//addPlace and lookPlace
 const popupAddPlace = document.querySelector('.popup_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
 const buttonCloseAddPlace = document.querySelector('.popup__close_add-place');
 const formAddPlace = document.querySelector('.popup__form_add-place');
 const boxForPlaces = document.querySelector('.places');
-
 const newNamePlace = document.querySelector('.popup__input_name-place');
 const newImageUrl = document.querySelector('.popup__input_url-image');
-const placeTemplate = document.querySelector('.places__template').content;
-const popupLookPlace = document.querySelector('.popup_position_look-place');
 const buttonCloseLookPlace = document.querySelector('.popup__close_look-place');
+const popupLookPlace = document.querySelector('.popup_position_look-place');
 const imageLookPlace = document.querySelector('.popup__image');
 const imageTitleLookPlace = document.querySelector('.popup__image-description');
 
+//----------------------------------------------------------------------
+//валидность у форм
 
-
-
-
+//добавить место
 const formElementAddPlace = new  FormValidator(formSetting, '.popup_add-place');
 formElementAddPlace.enableValidation();
-
+//редактировать профиль
 const formElementEditProfile = new  FormValidator(formSetting, '.popup_edit');
 formElementEditProfile.enableValidation();
+
+//----------------------------------------------------------------------
+//добавление начальных карточек
+arrayPlaces.forEach((item) => {
+	const card = new Card(item, '.places__template')
+	const cardElement = card.generateCard();
+  boxForPlaces.append(cardElement);
+})
 
 //---------------------------------------------------------------------
 //общий функционал для попапов
 
-//открытие попапа
+//открытие попапов
 function openPopup(el){
 	el.classList.add('popup_open');
 }
-//закрытие попапа
+//закрытие попапов
 function closePopup(el){
 		el.classList.remove('popup_open');
 		if(el !== popupLookPlace){
 			clearError(el);
 		}
 }
-
 //закрытие попапов на нажатие Escape
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape'){
@@ -64,7 +71,6 @@ document.addEventListener('keydown', (e) => {
 		}
 	}
 });
-
 // очистка error в попапах
 const clearError = (el) => {
 	//убирает error у span закрываемого попапа
@@ -86,11 +92,30 @@ const clearError = (el) => {
 		elementButtonError.removeAttribute('disabled', 'true');
  }
 }
+//--------------------------------------------------------------------
+//функционал для попапа lookPlace
+
+//открыть при клики на картинку
+boxForPlaces.addEventListener('click', (e) => {
+	if (e.target.classList.contains('places__image')){
+		imageLookPlace.setAttribute('src', e.target.getAttribute('src'));
+		imageLookPlace.setAttribute('alt', e.target.alt);
+		imageTitleLookPlace.textContent = e.target.alt;
+		openPopup(popupLookPlace);
+	};
+});
+
+//закрыть при клике на кнопку закрыть или на оверлей
+popupLookPlace.addEventListener('click', (e) => {
+	if ( !e.target.closest('.popup__container') || e.target === buttonCloseLookPlace) {
+		closePopup(popupLookPlace);
+	}
+});
 
 //---------------------------------------------------------------------
 //функционал редактирования профиля
 
-//открытие по клику
+//открыть
 buttonEdit.addEventListener('click', () => {
 	inputEditProfileName.value = profileName.textContent;
 	inputEditProfileAbout.value = profileAboutSelf.textContent;
@@ -104,7 +129,7 @@ buttonEdit.addEventListener('click', () => {
 		}
 });
 
-//сохранить профиль и закрыть попап редактирования
+//кнопка сохранить изменения
 formEditProfile.addEventListener('submit', (e) => {
 	e.preventDefault();
 	profileName.textContent = inputEditProfileName.value;
@@ -113,96 +138,20 @@ formEditProfile.addEventListener('submit', (e) => {
 });
 
 //-----------------------------------------------------------------------
-//открыть попап addPlace по кнопке
+//функционал для попап addPlace
+//открыть
 buttonAddPlace.addEventListener('click', () => {
 	newNamePlace.value = '';
 	newImageUrl.value = '';
 	openPopup(popupAddPlace);
 });
-
 // закрыть попап addPlace при клике на кнопку закрыть или на оверлей
 popupAddPlace.addEventListener('click', (e) => {
 		if ( !e.target.closest('.popup__container') || e.target === buttonCloseAddPlace) {
 			closePopup(popupAddPlace);
 		}
 });
-
-
-
-const cardSettings = {
-  imageClass: '.popup__image',
-  imageTitleClass: '.popup__image-description',
-  popupSelector: '.popup_position_look-place'
-};
-
-
-class Card{
-	constructor(element, cardSelector){
-		this._name = element.name;
-		this._link = element.link;
-		this._cardSelector = cardSelector;
-	}
-
-	_getTemplate() {
-    const cardElement = document.querySelector(this._cardSelector).content.querySelector('.places__item').cloneNode(true);
-    return cardElement;
-  }
-
-	_handleOpenPopup() {
-		imageLookPlace.setAttribute('src', `${this._link}`);
-		imageLookPlace.setAttribute('alt', this._name);
-		imageTitleLookPlace.textContent = this._name;
-		openPopup(popupLookPlace);
-
-  }
-  _handleClosePopup() {
-		closePopup(popupLookPlace);
-		imageLookPlace.removeAttribute('src');
-		imageLookPlace.removeAttribute('alt');
-		imageTitleLookPlace.textContent = '';
-  }
-	_handleDeleteCard() {
-		this._element.remove();
-	}
-	_handleToggleLike() {
-		this._element.querySelector('.places__like').classList.toggle('places__like_active');
-	}
-
-	_setEventListeners() {
-    this._element.querySelector('.places__image').addEventListener('click', () => {
-      this._handleOpenPopup();
-    });
-		this._element.querySelector('.places__delete').addEventListener('click', () => {
-			this._handleDeleteCard()
-		});
-		this._element.querySelector('.places__like').addEventListener('click', () => {
-			this._handleToggleLike();
-		});
-		popupLookPlace.addEventListener('click', (e) => {
-			if ( !e.target.closest('.popup__container') || e.target === buttonCloseLookPlace) {
-				this._handleClosePopup()
-			}
-		});
-  }
-	generateCard() {
-    this._element = this._getTemplate();
-    this._setEventListeners();
-    this._element.querySelector('.places__image').setAttribute('src', `${this._link}`);
-    this._element.querySelector('.places__image').setAttribute('alt', this._name);
-    this._element.querySelector('.places__title').textContent = this._name;
-    return this._element;
-  }
-}
-
-
-
-arrayPlaces.forEach((item) => {
-	const card = new Card(item, '.places__template')
-	const cardElement = card.generateCard();
-  boxForPlaces.append(cardElement);
-})
-
-//кнопка сохранить новое место в попапе addPlace
+//кнопка добавить новое место
 formAddPlace.addEventListener('submit', (e) => {
 	e.preventDefault();
 	const item = {
@@ -214,6 +163,4 @@ formAddPlace.addEventListener('submit', (e) => {
   boxForPlaces.prepend(cardElement);
 	closePopup(popupAddPlace);
 });
-
-
 
