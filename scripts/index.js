@@ -1,6 +1,6 @@
 import {FormValidator, formSetting} from './validate.js';
 import {arrayPlaces} from './arrayPlaces.js';
-import {Card} from './CardGenerate.js';
+import {Card, cardSetting} from './CardGenerate.js';
 
 //editProfile
 const popupEdit = document.querySelector('.popup_edit');
@@ -37,7 +37,7 @@ formElementEditProfile.enableValidation();
 //----------------------------------------------------------------------
 //добавление начальных карточек
 arrayPlaces.forEach((item) => {
-	const card = new Card(item, '.places__template')
+	const card = new Card(cardSetting, '.places__template', item.name, item.link)
 	const cardElement = card.generateCard();
   boxForPlaces.append(cardElement);
 })
@@ -48,17 +48,20 @@ arrayPlaces.forEach((item) => {
 //открытие попапов
 function openPopup(el){
 	el.classList.add('popup_open');
+	document.addEventListener('keydown', keyEscape);
 }
 //закрытие попапов
 function closePopup(el){
 		el.classList.remove('popup_open');
+		document.removeEventListener('keydown', keyEscape);
 		if(el !== popupLookPlace){
 			clearError(el);
 		}
 }
+
 //закрытие попапов на нажатие Escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape'){
+function keyEscape(e){
+ if (e.key === 'Escape'){
 		const popupCloseEscape = document.querySelector('.popup_open');
 		if(popupCloseEscape.classList.contains('popup_add-place')){
 			closePopup(popupAddPlace);
@@ -70,7 +73,9 @@ document.addEventListener('keydown', (e) => {
 			closePopup(popupLookPlace);
 		}
 	}
-});
+};
+
+
 // очистка error в попапах
 const clearError = (el) => {
 	//убирает error у span закрываемого попапа
@@ -139,6 +144,7 @@ formEditProfile.addEventListener('submit', (e) => {
 
 //-----------------------------------------------------------------------
 //функционал для попап addPlace
+
 //открыть
 buttonAddPlace.addEventListener('click', () => {
 	newNamePlace.value = '';
@@ -154,11 +160,7 @@ popupAddPlace.addEventListener('click', (e) => {
 //кнопка добавить новое место
 formAddPlace.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const item = {
-		name: newNamePlace.value,
-		link: newImageUrl.value
-	}
-	const card = new Card(item, '.places__template');
+	const card = new Card(cardSetting, '.places__template', newNamePlace.value, newImageUrl.value);
 	const cardElement = card.generateCard();
   boxForPlaces.prepend(cardElement);
 	closePopup(popupAddPlace);
