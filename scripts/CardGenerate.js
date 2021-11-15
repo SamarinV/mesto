@@ -40,7 +40,7 @@ class Card{
 		this._element.querySelector('.places__like').addEventListener('click', () => {
 			this._handleToggleLike();
 		});
-		popupLookPlace.addEventListener('click', (e) => {
+		this._element.querySelector('.popup_position_look-place').addEventListener('click', (e) => {
 			if ( !e.target.closest('.popup__container') || e.target === buttonCloseLookPlace) {
 				this._handleClosePopup()
 			}

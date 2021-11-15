@@ -1,4 +1,5 @@
-
+import {FormValidator, formSetting} from './validate.js';
+import {arrayPlaces} from './arrayPlaces.js';
 
 const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__button-edit');
@@ -27,6 +28,11 @@ const imageTitleLookPlace = document.querySelector('.popup__image-description');
 
 
 
+const formElementAddPlace = new  FormValidator(formSetting, '.popup_add-place');
+formElementAddPlace.enableValidation();
+
+const formElementEditProfile = new  FormValidator(formSetting, '.popup_edit');
+formElementEditProfile.enableValidation();
 
 //---------------------------------------------------------------------
 //общий функционал для попапов
@@ -114,13 +120,20 @@ buttonAddPlace.addEventListener('click', () => {
 	openPopup(popupAddPlace);
 });
 
-//закрыть попап addPlace при клике на кнопку закрыть или на оверлей
+// закрыть попап addPlace при клике на кнопку закрыть или на оверлей
 popupAddPlace.addEventListener('click', (e) => {
 		if ( !e.target.closest('.popup__container') || e.target === buttonCloseAddPlace) {
 			closePopup(popupAddPlace);
 		}
 });
 
+
+
+const cardSettings = {
+  imageClass: '.popup__image',
+  imageTitleClass: '.popup__image-description',
+  popupSelector: '.popup_position_look-place'
+};
 
 
 class Card{

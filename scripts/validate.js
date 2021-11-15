@@ -1,4 +1,4 @@
-	const settings = {
+export const formSetting = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
@@ -7,7 +7,7 @@
   errorClassActive: 'popup__input-error_active'
 };
 
-class FormValidator{
+export class FormValidator{
 	constructor(formElement, form){
 		this._formSelector = formElement.formSelector;
 		this._inputSelector = formElement.inputSelector;
@@ -81,9 +81,4 @@ class FormValidator{
 }
 
 
-const formElementAddPlace = new  FormValidator(settings, '.popup_add-place');
-formElementAddPlace.enableValidation();
-
-const formElementEditProfile = new  FormValidator(settings, '.popup_edit');
-formElementEditProfile.enableValidation();
 
