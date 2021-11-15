@@ -28,7 +28,7 @@ export class Card{
 		this._element.remove();
 	}
 	_handleToggleLike() {
-		this._likeClass.classList.toggle(this._toggleLike);
+		this._element.querySelector(this._likeClass).classList.toggle(this._toggleLike);
 	}
 
 	_setEventListeners() {
