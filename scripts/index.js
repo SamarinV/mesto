@@ -1,3 +1,5 @@
+
+
 const popupEdit = document.querySelector('.popup_edit');
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonCloseEdit = document.querySelector('.popup__close_edit');
@@ -16,11 +18,15 @@ const boxForPlaces = document.querySelector('.places');
 const newNamePlace = document.querySelector('.popup__input_name-place');
 const newImageUrl = document.querySelector('.popup__input_url-image');
 const placeTemplate = document.querySelector('.places__template').content;
-
 const popupLookPlace = document.querySelector('.popup_position_look-place');
 const buttonCloseLookPlace = document.querySelector('.popup__close_look-place');
 const imageLookPlace = document.querySelector('.popup__image');
 const imageTitleLookPlace = document.querySelector('.popup__image-description');
+
+
+
+
+
 
 //---------------------------------------------------------------------
 //общий функционал для попапов
@@ -101,52 +107,6 @@ formEditProfile.addEventListener('submit', (e) => {
 });
 
 //-----------------------------------------------------------------------
-//добавление новых карточек, попап addPlace,  попап lookPlace
-
-//создание новой карточки
-function createNewPlace(item) {
-	const placeElement = placeTemplate.querySelector('.places__item').cloneNode(true);
-	const placeImage = placeElement.querySelector('.places__image');
-	placeImage.setAttribute('src', item.link);
-	placeImage.setAttribute('alt', item.name);
-	placeElement.querySelector('.places__title').textContent = item.name;
-	return placeElement;
-}
-
-//добавление новой карточки в начало
-function appendPlace(item){
-	boxForPlaces.prepend(createNewPlace(item));
-}
-
-//перебор массива мест из ./scripts/arrayPlaces.js и их добавление
-arrayPlaces.reverse().forEach(appendPlace);
-
-//слушаем в карточках лайки, удаление и открытие попапа lookPlace
-boxForPlaces.addEventListener('click', (e) => {
-	//изменение лайков
-	if (e.target.classList.contains('places__like')){
-		e.target.classList.toggle('places__like_active');
-	};
-	//удаление карточки
-	if (e.target.classList.contains('places__delete')){
-		e.target.closest('.places__item').remove();
-	};
-	//открытие попапа lookPlace
-	if (e.target.classList.contains('places__image')){
-		imageLookPlace.setAttribute('src', e.target.getAttribute('src'));
-		imageLookPlace.setAttribute('alt', e.target.alt);
-		imageTitleLookPlace.textContent = e.target.alt;
-		openPopup(popupLookPlace);
-	};
-});
-
-//закрыть попап lookPlace при клике на кнопку закрыть или на оверлей
-popupLookPlace.addEventListener('click', (e) => {
-	if ( !e.target.closest('.popup__container') || e.target === buttonCloseLookPlace) {
-		closePopup(popupLookPlace);
-	}
-});
-
 //открыть попап addPlace по кнопке
 buttonAddPlace.addEventListener('click', () => {
 	newNamePlace.value = '';
@@ -161,6 +121,74 @@ popupAddPlace.addEventListener('click', (e) => {
 		}
 });
 
+
+
+class Card{
+	constructor(element, cardSelector){
+		this._name = element.name;
+		this._link = element.link;
+		this._cardSelector = cardSelector;
+	}
+
+	_getTemplate() {
+    const cardElement = document.querySelector(this._cardSelector).content.querySelector('.places__item').cloneNode(true);
+    return cardElement;
+  }
+
+	_handleOpenPopup() {
+		imageLookPlace.setAttribute('src', `${this._link}`);
+		imageLookPlace.setAttribute('alt', this._name);
+		imageTitleLookPlace.textContent = this._name;
+		openPopup(popupLookPlace);
+
+  }
+  _handleClosePopup() {
+		closePopup(popupLookPlace);
+		imageLookPlace.removeAttribute('src');
+		imageLookPlace.removeAttribute('alt');
+		imageTitleLookPlace.textContent = '';
+  }
+	_handleDeleteCard() {
+		this._element.remove();
+	}
+	_handleToggleLike() {
+		this._element.querySelector('.places__like').classList.toggle('places__like_active');
+	}
+
+	_setEventListeners() {
+    this._element.querySelector('.places__image').addEventListener('click', () => {
+      this._handleOpenPopup();
+    });
+		this._element.querySelector('.places__delete').addEventListener('click', () => {
+			this._handleDeleteCard()
+		});
+		this._element.querySelector('.places__like').addEventListener('click', () => {
+			this._handleToggleLike();
+		});
+		popupLookPlace.addEventListener('click', (e) => {
+			if ( !e.target.closest('.popup__container') || e.target === buttonCloseLookPlace) {
+				this._handleClosePopup()
+			}
+		});
+  }
+	generateCard() {
+    this._element = this._getTemplate();
+    this._setEventListeners();
+    this._element.querySelector('.places__image').setAttribute('src', `${this._link}`);
+    this._element.querySelector('.places__image').setAttribute('alt', this._name);
+    this._element.querySelector('.places__title').textContent = this._name;
+    return this._element;
+  }
+}
+
+
+
+arrayPlaces.forEach((item) => {
+	const card = new Card(item, '.places__template')
+	const cardElement = card.generateCard();
+  boxForPlaces.append(cardElement);
+})
+
 //кнопка сохранить новое место в попапе addPlace
 formAddPlace.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -168,8 +196,11 @@ formAddPlace.addEventListener('submit', (e) => {
 		name: newNamePlace.value,
 		link: newImageUrl.value
 	}
-	appendPlace(item);
+	const card = new Card(item, '.places__template');
+	const cardElement = card.generateCard();
+  boxForPlaces.prepend(cardElement);
 	closePopup(popupAddPlace);
-	clearFormPlace();
 });
+
+
 

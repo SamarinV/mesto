@@ -1,4 +1,4 @@
-const mestoSettings = {
+	const settings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
@@ -7,76 +7,83 @@ const mestoSettings = {
   errorClassActive: 'popup__input-error_active'
 };
 
-//находим span к каждому input и показываем error
-const showInputError = (formElement, inputElement, errorMessage, mestoSettings) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-	errorElement.textContent = inputElement.validationMessage;
-  errorElement.classList.add(mestoSettings.errorClassActive);
-	inputElement.classList.add(mestoSettings.inputErrorClass);
-};
-
-//находим span к каждому инпуту и прячем error
-const hideInputError = (formElement, inputElement, mestoSettings) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.classList.remove(mestoSettings.errorClassActive);
-  errorElement.textContent = '';
-	inputElement.classList.remove(mestoSettings.inputErrorClass);
-}; 
-
-// валидация input
-const isValid = (formElement, inputElement, mestoSettings) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, mestoSettings);
-  } else {
-    hideInputError(formElement, inputElement, mestoSettings);
-  }
-}; 
-
-//валидация кнопки
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-  	return !inputElement.validity.valid;
-	}); 
-};
-
-//ищем инпуты выбранной формы через массив инпутов для каждой формы для дальнейшей валидации
-const setEventListeners = (formElement, mestoSettings) => {
-  const inputList = Array.from(formElement.querySelectorAll(mestoSettings.inputSelector));
-	const buttonElement = formElement.querySelector(mestoSettings.submitButtonSelector);
+class FormValidator{
+	constructor(formElement, form){
+		this._formSelector = formElement.formSelector;
+		this._inputSelector = formElement.inputSelector;
+		this._submitButtonSelector = formElement.submitButtonSelector;
+		this._inactiveButtonClass = formElement.inactiveButtonClass;
+		this._inputErrorClass = formElement.inputErrorClass;
+		this._errorClassActive = formElement.errorClassActive;
+		this._form = form;
+	}
 	
-  inputList.forEach((inputElement) => {
-		//состояние кнопки сохранить/добавить для выбранной формы при загрузке
-		toggleButtonState(inputList, buttonElement, mestoSettings);
-    hideInputError(formElement, inputElement, mestoSettings);
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement, mestoSettings);
-			toggleButtonState(inputList, buttonElement, mestoSettings);
-    });
-  });
-};
+	_isValid = (inputElement) => {
+  	if (!inputElement.validity.valid) {
+    	this._showInputError(inputElement);
+  	} else {
+    	this._hideInputError(inputElement);
+  	}
+	};
 
-// меняем кнопку submit у форм
-function toggleButtonState (inputList, buttonElement, mestoSettings){
-	if (hasInvalidInput(inputList)) {
-  	buttonElement.classList.add(mestoSettings.inactiveButtonClass);
-		buttonElement.setAttribute('disabled', 'true');
-	} else {
-  	buttonElement.classList.remove(mestoSettings.inactiveButtonClass);
-		buttonElement.removeAttribute('disabled');
-	} 
+	_showInputError = (inputElement) => {
+  	const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+		errorElement.textContent = inputElement.validationMessage;
+  	errorElement.classList.add(this._errorClassActive);
+		inputElement.classList.add(this._inputErrorClass);
+	};
+
+	_hideInputError = (inputElement) => {
+  	const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+  	errorElement.classList.remove(this._errorClassActive);
+  	errorElement.textContent = '';
+		inputElement.classList.remove(this._inputErrorClass);
+	}; 
+
+	_hasInvalidInput = (inputList) => {
+  	return inputList.some((inputElement) => { return !inputElement.validity.valid;});
+	};
+	_toggleButtonState = (inputList, buttonElement) => {
+		if (this._hasInvalidInput(inputList)) {
+  		buttonElement.classList.add(this._inactiveButtonClass);
+			buttonElement.setAttribute('disabled', 'true');
+		} else {
+  		buttonElement.classList.remove(this._inactiveButtonClass);
+			buttonElement.removeAttribute('disabled');
+		} 
+	}
+
+	//ищем инпуты выбранной формы через массив инпутов для каждой формы для дальнейшей валидации
+	_setEventListeners = () => {
+		const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+		const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+		this._toggleButtonState(inputList, buttonElement);
+  	inputList.forEach((inputElement) => {
+    	this._hideInputError(inputElement);
+    	inputElement.addEventListener('input', () => {
+      	this._isValid(inputElement);
+				this._toggleButtonState(inputList, buttonElement);
+    	});
+  	});
+	};
+
+	_getForm() {
+    const formElement = document.querySelector(this._form);
+    return formElement;
+	}
+
+	enableValidation () {
+		this._formElement = this._getForm();
+		this._setEventListeners();
+		return this._formElement;
+	};
+
 }
 
-//ищем выбранную форму для валидации через массив всех форм
-function enableValidation (mestoSettings) {
-  const formList = Array.from(document.querySelectorAll(mestoSettings.formSelector));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (e) => {
-      e.preventDefault();
-    });
-    setEventListeners(formElement, mestoSettings);
-  });
-};
 
-enableValidation(mestoSettings); 
+const formElementAddPlace = new  FormValidator(settings, '.popup_add-place');
+formElementAddPlace.enableValidation();
 
+const formElementEditProfile = new  FormValidator(settings, '.popup_edit');
+formElementEditProfile.enableValidation();
 
