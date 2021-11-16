@@ -1,11 +1,4 @@
-export const formSetting = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClassActive: 'popup__input-error_active'
-};
+
 
 export class FormValidator{
 	constructor(formElement, form){
@@ -16,6 +9,9 @@ export class FormValidator{
 		this._inputErrorClass = formElement.inputErrorClass;
 		this._errorClassActive = formElement.errorClassActive;
 		this._form = form;
+		// this._formElement = ...
+		// this._inputList = ...
+		// this._submitButton = ... 
 	}
 	
 	_isValid = (inputElement) => {

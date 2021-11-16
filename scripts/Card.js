@@ -1,11 +1,3 @@
-export const cardSetting = {
-	  cardClass: '.places__item',
-		likeClass: '.places__like',
-		toggleLike: 'places__like_active',
-		buttonDeleteClass: '.places__delete',
-		imageClass: '.places__image',
-		imageTitleClass: '.places__title'
-};
 
 export class Card{
 	constructor(cardSetting, cardSelector, name, link){
@@ -26,6 +18,7 @@ export class Card{
   }
 	_handleDeleteCard() {
 		this._element.remove();
+		this._element = null;
 	}
 	_handleToggleLike() {
 		this._element.querySelector(this._likeClass).classList.toggle(this._toggleLike);
