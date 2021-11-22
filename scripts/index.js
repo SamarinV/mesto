@@ -51,7 +51,7 @@ arrayPlaces.forEach((item) => {
 //общий функционал для попапов
 
 //открытие попапов
-export function openPopup(el){
+function openPopup(el){
 	el.classList.add('popup_open');
 	document.addEventListener('keydown', keyEscape);
 }

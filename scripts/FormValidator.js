@@ -1,6 +1,3 @@
-// ----- ------ ------ ------ ----- ----
-// ------------------------------------
-
 class FormValidator{
 	constructor(formElement, form){
 		this._formSelector = formElement.formSelector;
