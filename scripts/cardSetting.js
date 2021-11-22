@@ -10,4 +10,3 @@ const cardSetting = {
 
 };
 export default cardSetting;
-
