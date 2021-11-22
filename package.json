@@ -4,9 +4,8 @@
   "description": "---\r Ни для чего, это просто адаптивный одностраничный сайт, создан по макету \r в Figma для тренировки основ по JavaScript. Адаптив сделан для экранов\r от 320px до 1280px и больше.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "start": "webpack --watch"
+    "build": "webpack --mode=production --devtool eval-source-map",
+		"start": "webpack --watch"
   },
   "repository": {
     "type": "git",
