@@ -1,4 +1,4 @@
-export const formSetting = {
+const formSetting = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
@@ -6,3 +6,4 @@ export const formSetting = {
   inputErrorClass: 'popup__input_type_error',
   errorClassActive: 'popup__input-error_active'
 };
+export default formSetting;

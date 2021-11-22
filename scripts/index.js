@@ -1,8 +1,8 @@
-import {FormValidator} from './FormValidator.js';
-import {formSetting} from './formSetting.js';
-import {arrayPlaces} from './arrayPlaces.js';
-import {Card} from './Card.js';
-import {cardSetting} from './cardSetting.js';
+import FormValidator from './FormValidator.js';
+import formSetting from './formSetting.js';
+import arrayPlaces from './arrayPlaces.js';
+import Card from './Card.js';
+import cardSetting from './cardSetting.js';
 
 //editProfile
 const popupEdit = document.querySelector('.popup_edit');
@@ -18,37 +18,40 @@ const popupAddPlace = document.querySelector('.popup_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
 const buttonCloseAddPlace = document.querySelector('.popup__close_add-place');
 const formAddPlace = document.querySelector('.popup__form_add-place');
-const boxForPlaces = document.querySelector('.places');
 const newNamePlace = document.querySelector('.popup__input_name-place');
 const newImageUrl = document.querySelector('.popup__input_url-image');
 const buttonCloseLookPlace = document.querySelector('.popup__close_look-place');
+const boxForPlaces = document.querySelector('.places');
 const popupLookPlace = document.querySelector('.popup_position_look-place');
-const imageLookPlace = document.querySelector('.popup__image');
-const imageTitleLookPlace = document.querySelector('.popup__image-description');
 
 //----------------------------------------------------------------------
 //валидность у форм
 
-//добавить место
+//валидность для попапа добавить место
 const formElementAddPlace = new  FormValidator(formSetting, '.popup_add-place');
 formElementAddPlace.enableValidation();
-//редактировать профиль
+//валидность для попапа редактировать профиль
 const formElementEditProfile = new  FormValidator(formSetting, '.popup_edit');
 formElementEditProfile.enableValidation();
 
 //----------------------------------------------------------------------
+//функция добавления карточек
+function createCard (setting, templateSelector, name, link, popup, funcOpenPopup){
+	const card = new Card(setting, templateSelector, name, link, popup, funcOpenPopup)
+	const cardElement = card.generateCard();
+  boxForPlaces.prepend(cardElement);
+}
+
 //добавление начальных карточек
 arrayPlaces.forEach((item) => {
-	const card = new Card(cardSetting, '.places__template', item.name, item.link)
-	const cardElement = card.generateCard();
-  boxForPlaces.append(cardElement);
+	createCard(cardSetting, '.places__template', item.name, item.link, popupLookPlace, openPopup);
 })
 
 //---------------------------------------------------------------------
 //общий функционал для попапов
 
 //открытие попапов
-function openPopup(el){
+export function openPopup(el){
 	el.classList.add('popup_open');
 	document.addEventListener('keydown', keyEscape);
 }
@@ -56,61 +59,18 @@ function openPopup(el){
 function closePopup(el){
 		el.classList.remove('popup_open');
 		document.removeEventListener('keydown', keyEscape);
-		if(el !== popupLookPlace){
-			clearError(el);
-		}
 }
 
 //закрытие попапов на нажатие Escape
-function keyEscape(e){
- if (e.key === 'Escape'){
-		const popupCloseEscape = document.querySelector('.popup_open');
-		if(popupCloseEscape.classList.contains('popup_add-place')){
-			closePopup(popupAddPlace);
-		}
-		else if(popupCloseEscape.classList.contains('popup_edit')){
-			closePopup(popupEdit);
-		}
-		else {
-			closePopup(popupLookPlace);
-		}
-	}
-};
+function keyEscape(e) {
+    if (e.key === 'Escape') {
+        const popupCloseEscape = document.querySelector('.popup_open');
+        closePopup(popupCloseEscape);
+    }
+}; 
 
-
-// очистка error в попапах
-const clearError = (el) => {
-	//убирает error у span закрываемого попапа
-	const elementsSpanError = el.querySelectorAll('span');
-	elementsSpanError.forEach(err => err.classList.remove('popup__input-error_active'));
-
-	//убирает error у input закрываемого попапа
-	const elementsInputError = el.querySelectorAll('input');
-	elementsInputError.forEach(err => err.classList.remove('popup__input_type_error')) 
-	
-	// ставит дефолтную кнопку submit у закрываемого попапа
-	const elementButtonError = el.querySelector('.popup__save');
-	if (el === popupAddPlace){	//если попап Добавления места
-		elementButtonError.classList.add('popup__save_disabled');
-		elementButtonError.setAttribute('disabled', 'true');
-	}
-	else {						//если оставшийся попап Редактирования профиля
-		elementButtonError.classList.remove('popup__save_disabled');
-		elementButtonError.removeAttribute('disabled', 'true');
- }
-}
 //--------------------------------------------------------------------
 //функционал для попапа lookPlace
-
-//открыть при клики на картинку
-boxForPlaces.addEventListener('click', (e) => {
-	if (e.target.classList.contains('places__image')){
-		imageLookPlace.setAttribute('src', e.target.getAttribute('src'));
-		imageLookPlace.setAttribute('alt', e.target.alt);
-		imageTitleLookPlace.textContent = e.target.alt;
-		openPopup(popupLookPlace);
-	};
-});
 
 //закрыть при клике на кнопку закрыть или на оверлей
 popupLookPlace.addEventListener('click', (e) => {
@@ -126,6 +86,7 @@ popupLookPlace.addEventListener('click', (e) => {
 buttonEdit.addEventListener('click', () => {
 	inputEditProfileName.value = profileName.textContent;
 	inputEditProfileAbout.value = profileAboutSelf.textContent;
+	// formElementEditProfile.clearError();;-------------------раскомментировать
 	openPopup(popupEdit);
 });
 
@@ -151,6 +112,7 @@ formEditProfile.addEventListener('submit', (e) => {
 buttonAddPlace.addEventListener('click', () => {
 	newNamePlace.value = '';
 	newImageUrl.value = '';
+	formElementAddPlace.clearError();
 	openPopup(popupAddPlace);
 });
 // закрыть попап addPlace при клике на кнопку закрыть или на оверлей
@@ -162,9 +124,9 @@ popupAddPlace.addEventListener('click', (e) => {
 //кнопка добавить новое место
 formAddPlace.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const card = new Card(cardSetting, '.places__template', newNamePlace.value, newImageUrl.value);
-	const cardElement = card.generateCard();
-  boxForPlaces.prepend(cardElement);
+	createCard(cardSetting, '.places__template', newNamePlace.value, newImageUrl.value, popupLookPlace, openPopup);
+
 	closePopup(popupAddPlace);
 });
+
 
