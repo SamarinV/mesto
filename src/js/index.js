@@ -1,8 +1,8 @@
-import FormValidator from './FormValidator.js';
-import formSetting from './formSetting.js';
-import arrayPlaces from './arrayPlaces.js';
-import Card from './Card.js';
-import cardSetting from './cardSetting.js';
+import FormValidator from './FormValidator';
+import formSetting from './formSetting';
+import arrayPlaces from './arrayPlaces';
+import Card from './Card';
+import cardSetting from './cardSetting';
 
 //editProfile
 const popupEdit = document.querySelector('.popup_edit');
