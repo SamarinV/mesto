@@ -1,0 +1,24 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "---\r Ни для чего, это просто адаптивный одностраничный сайт, создан по макету \r в Figma для тренировки основ по JavaScript. Адаптив сделан для экранов\r от 320px до 1280px и больше.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+		"build": "webpack",
+  "start": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamarinV/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamarinV/mesto/issues"
+  },
+  "homepage": "https://github.com/SamarinV/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.64.2"
+  }
+}
