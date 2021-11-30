@@ -1,8 +1,15 @@
-// import FormValidator from './js/FormValidator.js';
-// import formSetting from './js/formSetting.js';
-// import arrayPlaces from './js/arrayPlaces.js';
-// import Card from './js/Card.js';
-// import cardSetting from './js/cardSetting.js';
+import FormValidator from './js/FormValidator.js';
+import formSetting from './js/formSetting.js';
+import arrayPlaces from './js/arrayPlaces.js';
+import Card from './js/Card.js';
+import cardSetting from './js/cardSetting.js';
+
+// import _ from 'lodash';
+import './styles/pages/index.css';
+
+
+// const profileImage = document.querySelector('.profile__avatar');
+// profileImage.setAttribute('src', '../src/images/image.jpg');
 
 // editProfile
 const popupEdit = document.querySelector('.popup_edit');
