@@ -1,6 +1,9 @@
+import PopupImage from './PopupImage';
+
+const boxForPlaces = document.querySelector('.places');
+
 class Card {
-  constructor(cardSetting, cardSelector, name, link, popup, openPopup) {
-    this._openPopup = openPopup;
+  constructor(cardSetting, cardSelector, name, link, popup) {
     this._popup = popup;
     this._name = name;
     this._link = link;
@@ -11,8 +14,6 @@ class Card {
     this._buttonDeleteClass = cardSetting.buttonDeleteClass;
     this._imageClass = cardSetting.imageClass;
     this._imageTitleClass = cardSetting.imageTitleClass;
-    this._popupImageLookPlace = document.querySelector(cardSetting.popupImageLookPlace);
-    this._popupImageTitleLookPlace = document.querySelector(cardSetting.popupImageTitleLookPlace);
   }
 
   _getTemplate = () => {
@@ -29,27 +30,28 @@ class Card {
     this._element.querySelector(this._likeClass).classList.toggle(this._toggleLike);
   };
 
-  _handleOpenPopup = () => {
-    this._popupImageLookPlace.setAttribute('src', `${this._link}`);
-    this._popupImageLookPlace.setAttribute('alt', this._name);
-    this._popupImageTitleLookPlace.textContent = this._name;
-    this._openPopup(this._popup);
-  };
-
   _setEventListeners() {
     this._element.querySelector(this._buttonDeleteClass).addEventListener('click', this._handleDeleteCard);
     this._element.querySelector(this._likeClass).addEventListener('click', this._handleToggleLike);
-    this._element.querySelector(this._imageClass).addEventListener('click', this._handleOpenPopup);
+		this._element.querySelector(this._imageClass).addEventListener('click', () => {
+			const popupForImage = new PopupImage(this._popup, this._name, this._link)
+			popupForImage.openPopup()
+		});
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
+    this._setEventListeners();//удалени, смена лайка, открытие попапа с картинкой
     this._element.querySelector(this._imageClass).setAttribute('src', `${this._link}`);
     this._element.querySelector(this._imageClass).setAttribute('alt', this._name);
     this._element.querySelector(this._imageTitleClass).textContent = this._name;
     return this._element;
   }
+	// функция добавления карточек
+		rendererCard() {
+			this.generateCard()
+  		boxForPlaces.prepend(this._element);
+}
 }
 
 export default Card;
