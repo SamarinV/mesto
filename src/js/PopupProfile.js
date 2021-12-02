@@ -10,20 +10,21 @@ class PopupProfile extends Popup{
 		this._inputNewName = this._form.querySelector('.popup__input_profile-name')
 		this._inputAboutSelf = this._form.querySelector('.popup__input_about-self')
 	}
-	openPopup = () => {
+
+	closePopup(){
+		super.closePopup()
 		this._inputNewName.value = this._profileName.textContent
 		this._inputAboutSelf.value = this._profileAboutSelf.textContent
-		super.openPopup()
 	}
-		_setEventListener(){
-			super._setEventListener()
-			this._form.addEventListener('submit', (e) => {
-			  e.preventDefault()
-  			this._profileName.textContent = this._inputNewName.value
- 				this._profileAboutSelf.textContent = this._inputAboutSelf.value
-				this.closePopup()
-			})
-		}
+	_setEventListener(){
+		super._setEventListener()
+		this._form.addEventListener('submit', (e) => {
+		  e.preventDefault()
+  		this._profileName.textContent = this._inputNewName.value
+ 			this._profileAboutSelf.textContent = this._inputAboutSelf.value
+			this.closePopup()
+		})
+	}
 }
 
 

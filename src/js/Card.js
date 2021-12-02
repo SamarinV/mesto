@@ -1,13 +1,13 @@
 import PopupImage from './PopupImage';
 
-const boxForPlaces = document.querySelector('.places');
+const boxForCard = document.querySelector('.places');
 
 class Card {
-  constructor(cardSetting, cardSelector, name, link, popup) {
+  constructor(cardSetting, template, name, link, popup) {
     this._popup = popup;
     this._name = name;
     this._link = link;
-    this._cardSelector = cardSelector;
+    this._template = template;
     this._cardClass = cardSetting.cardClass;
     this._likeClass = cardSetting.likeClass;
     this._toggleLike = cardSetting.toggleLike;
@@ -17,7 +17,7 @@ class Card {
   }
 
   _getTemplate = () => {
-    const cardElement = document.querySelector(this._cardSelector).content.querySelector(this._cardClass).cloneNode(true);
+    const cardElement = document.querySelector(this._template).content.querySelector(this._cardClass).cloneNode(true);
     return cardElement;
   };
 
@@ -39,7 +39,7 @@ class Card {
 		});
   }
 
-  generateCard() {
+  _generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();//удалени, смена лайка, открытие попапа с картинкой
     this._element.querySelector(this._imageClass).setAttribute('src', `${this._link}`);
@@ -49,8 +49,8 @@ class Card {
   }
 	// функция добавления карточек
 		rendererCard() {
-			this.generateCard()
-  		boxForPlaces.prepend(this._element);
+			this._generateCard()
+  		boxForCard.prepend(this._element);
 }
 }
 

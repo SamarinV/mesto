@@ -13,13 +13,12 @@ const buttonEdit = document.querySelector('.profile__button-edit');
 const popupAddPlace = document.querySelector('.popup_add-place');
 const buttonAddPlace = document.querySelector('.profile__button-add');
 const popupLookPlace = document.querySelector('.popup_position_look-place');
-
-// валидность для попапа добавить место
-const formElementAddPlace = new FormValidator(formSetting, '.popup_add-place');
-formElementAddPlace.enableValidation();
-// валидность для попапа редактировать профиль
-const formElementEditProfile = new FormValidator(formSetting, '.popup_edit');
-formElementEditProfile.enableValidation();
+const popupForEdit = new PopupProfile(popupEdit);		//создание попапа Профиля
+const popupForAddPlace = new PopupAddNewPlace(popupAddPlace, cardSetting, popupLookPlace);	//создание попапа Нового места
+const formAddPlaceValid = new FormValidator(formSetting, '.popup_add-place');// валидность для попапа добавить место
+	formAddPlaceValid.enableValidation();
+const formElementProfileValid = new FormValidator(formSetting, '.popup_edit');	// валидность для попапа редактировать профиль
+	formElementProfileValid.enableValidation();
 
 // добавление начальных карточек
 arrayPlaces.forEach((item) => {
@@ -27,16 +26,16 @@ arrayPlaces.forEach((item) => {
 	card.rendererCard();
 });
 
-// открыть редактирования профиля
+// открытие попапа профиля
 buttonEdit.addEventListener('click', () => {
-	const popup = new PopupProfile(popupEdit);
-	popup.openPopup();
+  formElementProfileValid.clearError();
+	popupForEdit.openPopup();
 });
+
 // открыть попап addPlace
 buttonAddPlace.addEventListener('click', () => {
-  formElementAddPlace.clearError();
-  const popup = new PopupAddNewPlace(popupAddPlace, cardSetting, popupLookPlace);
-	popup.openPopup();
+  formAddPlaceValid.clearError();
+	popupForAddPlace.openPopup();
 });
 
 
