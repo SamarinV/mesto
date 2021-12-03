@@ -10,17 +10,3 @@ const presets = [
 		useBuiltIns: 'entry'
 	}]
 ];
-
-
-// {
-// 	"presets": [
-// 		["@babel/preset-env", {
-// 			"targets": [
-// 				"last 5 version"
-// 			]
-// 		}
-// 		],
-// 		"minify"
-// 	],
-// 		"comments": false
-// }
