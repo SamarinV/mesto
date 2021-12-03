@@ -51,29 +51,15 @@ module.exports = {
 			},
 
 			{
-				test: /\.css$/i,
-				use: [
-					MiniCssExtractPlugin.loader,
-					{
-						loader: "css-loader",
-						options: { importLoaders: 1 },
-					},
-					{
-						loader: "postcss-loader",
-						options: {
-							postcssOptions: {
-								plugins: [
-									[
-										"postcss-preset-env",
-										{
-											// Options
-										},
-									],
-								],
-							},
-						},
-					},
-				],
+				test: /\.css$/,
+				use: [MiniCssExtractPlugin.loader, {
+					loader: "css-loader",
+					options: {
+						importLoaders: 1
+					}
+				},
+					"postcss-loader"
+				]
 			},
 
 			{
