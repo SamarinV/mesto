@@ -2,7 +2,6 @@
   "name": "mesto",
   "version": "1.0.0",
   "description": "---\r Ни для чего, это просто адаптивный одностраничный сайт, создан по макету \r в Figma для тренировки основ по JavaScript. Адаптив сделан для экранов\r от 320px до 1280px и больше.",
-  "private": true,
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
@@ -44,5 +43,5 @@
   "dependencies": {
     "uglify-js": "^3.14.3"
   },
-  "main": "babel.config.js"
+  "main": "index.js"
 }

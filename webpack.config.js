@@ -8,6 +8,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
 	entry: './src/index.js',
 	output: {
+		globalObject: "this",
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist'),
 	},
@@ -23,7 +24,7 @@ module.exports = {
 			new CssMinimizerPlugin(),
 		],
 	},
-	devtool: "source-map",
+	// devtool: "source-map",
 	devServer: {
 		static: {
 			directory: path.join(__dirname, 'dist'),

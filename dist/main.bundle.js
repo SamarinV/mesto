@@ -399,4 +399,3 @@ buttonAddPlace.addEventListener('click', () => {
 });
 /******/ })()
 ;
-//# sourceMappingURL=main.bundle.js.map
