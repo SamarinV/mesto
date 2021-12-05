@@ -44,5 +44,5 @@
   "dependencies": {
     "uglify-js": "^3.14.3"
   },
-  "main": "index.js"
+  "private": true
 }
